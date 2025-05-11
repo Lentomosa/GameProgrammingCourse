@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator Continue()
     {
         yield return new WaitForSeconds(2f);
-        transform.position = new Vector3(0f, -4.29f, 0f);
+        transform.position = new Vector3(0f, -5f, 0f);
         canMove = true;
 
         GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
