@@ -7,6 +7,10 @@ TagManager:
   - pickup
   - Enemy
   - Ball
+  - bumper
+  - EnemyBullet
+  - PlayerBullet
+  - Shield
   layers:
   - Default
   - TransparentFX
