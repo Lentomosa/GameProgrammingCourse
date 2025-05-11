@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4543360752130412411}
   - component: {fileID: 8220743256877089724}
   - component: {fileID: 6922976279220120564}
-  - component: {fileID: 5636827395936463797}
   - component: {fileID: 1529959887320886097}
   - component: {fileID: -6953317839567035642}
+  - component: {fileID: 8397403755563124421}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Shield
@@ -86,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5636827395936463797
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8944842588245750466}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1529959887320886097
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -127,3 +114,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4a355d9aa1e3340853666962971f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &8397403755563124421
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8944842588245750466}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.27
+  m_Height: 1
+  m_Direction: 0
+  m_Center: {x: 0, y: 0, z: 0}
