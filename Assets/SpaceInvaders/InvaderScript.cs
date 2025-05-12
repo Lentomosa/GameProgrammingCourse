@@ -11,7 +11,6 @@ public class InvaderScript : MonoBehaviour
     public float speed = 3f;
 
     public float offSetX = 1f;
-  
 
     public float speedLeft = -1f;
     public float speedRight = 1f;
@@ -23,9 +22,7 @@ public class InvaderScript : MonoBehaviour
 
     public Transform player;
 
-    public GameObject bullet;
     public Transform gun;
-
     public bool canReflect = false;
 
     public Transform shield;
@@ -35,7 +32,8 @@ public class InvaderScript : MonoBehaviour
     public float shieldTime = 3f;
     public bool shieldActive = false;
 
-
+    public GameObject gameManager;
+    public InvaderBulletPool invaderBulletPool;
 
     private GameObject shieldInstance;
 
@@ -47,29 +45,23 @@ public class InvaderScript : MonoBehaviour
         Transform shield = transform.GetChild(0);
         shieldInstance = Instantiate(shieldPrefab, shield.position, shield.rotation, shield);
         shieldInstance.SetActive(false);
-
+        invaderBulletPool = GetComponent<InvaderBulletPool>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //shieldPrefab.transform.position = shield.position;
-        
-
-
+        // Your existing movement and shield code remains unchanged.
         if (canMove)
         {
-
             timer += Time.deltaTime;
             shieldTimer += Time.deltaTime;
-
 
             if (timer > changeTime)
             {
                 Move();
-
+                
                 timer = 0f;
-                //invaders[Random.Range(0, invaders.Length)].GetComponent<InvaderScript>().Shoot();
             }
 
             if (shieldTimer > shieldTime && !shieldActive)
@@ -84,38 +76,50 @@ public class InvaderScript : MonoBehaviour
                 shieldInstance.SetActive(false);
                 shieldTimer = 0f;
                 shieldActive = false;
-
             }
-
-
-
 
             if (transform.position.y <= player.transform.position.y)
             {
                 print("game over");
-                
             }
         }
     }
 
-
-
-
-
+    // Modified Shoot() method for pooled bullets
     public void Shoot()
     {
-        Instantiate(bullet, gun.position, gun.rotation);
-        
+        if (invaderBulletPool == null)
+        {
+            Debug.LogError("InvaderGameManager reference is not assigned!");
+            return;
+        }
+        GameObject invaderBullet = invaderBulletPool.InvaderGetPooledBullet();
+        if (invaderBullet == null)
+        {
+            Debug.LogWarning("No inactive bullets available in the pool!");
+            return;
+        }
+        // Position the bullet at the gun's position if available.
+        if (gun != null)
+        {
+            invaderBullet.transform.position = gun.position;
+            invaderBullet.transform.rotation = gun.rotation;
+        }
+        else
+        {
+            Debug.LogWarning("Gun transform is not assigned; using invader's position.");
+            invaderBullet.transform.position = transform.position;
+        }
+        invaderBullet.SetActive(true);
+        Debug.Log("Bullet activated at position: " + invaderBullet.transform.position);
     }
 
     public void Move()
     {
         transform.position = new Vector2(transform.position.x + offSetX, transform.position.y);
- 
-
     }
 
-     private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -128,8 +132,6 @@ public class InvaderScript : MonoBehaviour
                 invaders[i].GetComponent<InvaderScript>().collidedRight = true;
                 invaders[i].GetComponent<InvaderScript>().collidedLeft = false;
             }
-
-
         }
 
         if (other.gameObject.name == "BumperLeft" && !collidedLeft)
@@ -141,8 +143,6 @@ public class InvaderScript : MonoBehaviour
                 invaders[i].GetComponent<InvaderScript>().collidedLeft = true;
                 invaders[i].GetComponent<InvaderScript>().collidedRight = false;
             }
-
-
         }
 
         if (other.gameObject.CompareTag("PlayerBullet") && !canReflect)
@@ -150,23 +150,8 @@ public class InvaderScript : MonoBehaviour
             Damage(1);
             print("hit by player");
             other.gameObject.SetActive(false);
-           
         }
-
-
-
-       /* if (other.gameObject.CompareTag("PlayerBullet") && canReflect)
-        {
-           
-            print("Bullet Reflected");
-            // other.gameObject.SetActive(false);
-            other.gameObject.GetComponent<PlayerBullet>().ReflectBullet();
-        }
-        */
-
     }
-
-
 
     public void Damage(int dmgAmount)
     {
@@ -175,8 +160,5 @@ public class InvaderScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
     }
-
-
 }

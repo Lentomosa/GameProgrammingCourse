@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 7054158849725582848}
   - component: {fileID: 7054158849725582849}
   - component: {fileID: 7054158849725582908}
+  - component: {fileID: 1561870352168586070}
   m_Layer: 0
   m_Name: Invader
   m_TagString: Enemy
@@ -171,10 +172,29 @@ MonoBehaviour:
   collidedRight: 0
   offSetY: -1
   player: {fileID: 0}
-  bullet: {fileID: 5984271301505279123, guid: 55e75d86e4da3084f8572328522a6978, type: 3}
   gun: {fileID: 0}
   canReflect: 0
   shield: {fileID: 0}
   shieldPrefab: {fileID: 8944842588245750466, guid: daba8c811f5501c4cb021a1936b6ed32,
     type: 3}
   shieldTime: 3
+  shieldActive: 0
+  gameManager: {fileID: 7104639987438362468, guid: d0b6723366dd11943bbf87ffc98cfc37,
+    type: 3}
+  invaderGameManager: {fileID: 0}
+--- !u!114 &1561870352168586070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7054158849725582850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea95518f302d9d14b9b0e09eda2c7cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invaderBullets: []
+  invaderbulletToPool: {fileID: 5984271301505279123, guid: 55e75d86e4da3084f8572328522a6978,
+    type: 3}
+  invaderBulletAmount: 1

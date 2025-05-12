@@ -15,6 +15,16 @@ public class EnemyBullet : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
+
+        if (transform.position.y > 10f)
+        {
+            gameObject.SetActive(false);
+        }
+
+        if (transform.position.y < -10f)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,6 +32,7 @@ public class EnemyBullet : MonoBehaviour
         if(other.gameObject.name == "Player")
         {
             other.gameObject.GetComponent<PlayerController>().DecreaseLives();
+            gameObject.SetActive(false);
         }
 
     }
