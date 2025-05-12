@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
     public BulletPool bulletPool;
     public Transform cannon;
 
-    public float enemyBulletTime = 1f;
-    float enemyBulletThreshold = 0f;
+    //public float enemyBulletTime = 1f;
+    //float enemyBulletThreshold = 0f;
 
 
 
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         bulletPool = GetComponent<BulletPool>();
         // Set the initial random threshold once.
-        enemyBulletThreshold = Random.Range(3f, 8f);
+        //enemyBulletThreshold = Random.Range(3f, 8f);
     }
 
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        enemyBulletTime += Time.deltaTime;
+       /* enemyBulletTime += Time.deltaTime;
         
 
 
@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
             // Generate a new random threshold for the next shot.
             enemyBulletThreshold = Random.Range(0.5f, 3f);
         }
+        */
     }
 
     public void Shoot()
