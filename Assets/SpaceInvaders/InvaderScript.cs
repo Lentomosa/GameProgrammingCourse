@@ -31,6 +31,7 @@ public class InvaderScript : MonoBehaviour
     private float activeTimer;
     public float shieldTime = 3f;
     public bool shieldActive = false;
+    public bool canUseShield = false;
 
     public GameObject gameManager;
     public InvaderBulletPool invaderBulletPool;
@@ -51,7 +52,7 @@ public class InvaderScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Your existing movement and shield code remains unchanged.
+ 
         if (canMove)
         {
             timer += Time.deltaTime;
@@ -64,18 +65,23 @@ public class InvaderScript : MonoBehaviour
                 timer = 0f;
             }
 
-            if (shieldTimer > shieldTime && !shieldActive)
-            {
+            if (canUseShield)
+            { 
+
+                if (shieldTimer > shieldTime && !shieldActive)
+                {
                 shieldInstance.SetActive(true);
                 shieldTimer = 0f;
                 shieldActive = true;
-            }
+                }
 
-            if (shieldTimer > shieldTime && shieldActive)
-            {
+                if (shieldTimer > shieldTime && shieldActive)
+                {
                 shieldInstance.SetActive(false);
                 shieldTimer = 0f;
                 shieldActive = false;
+                canUseShield = false;
+                }
             }
 
             if (transform.position.y <= player.transform.position.y)
@@ -85,7 +91,7 @@ public class InvaderScript : MonoBehaviour
         }
     }
 
-    // Modified Shoot() method for pooled bullets
+    // Shooting of pooled bullets
     public void Shoot()
     {
         if (invaderBulletPool == null)
