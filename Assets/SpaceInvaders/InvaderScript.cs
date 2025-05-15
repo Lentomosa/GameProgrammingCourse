@@ -41,6 +41,7 @@ public class InvaderScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager");
         player = GameObject.Find("Player").transform;
         gun = transform.GetChild(0);
         Transform shield = transform.GetChild(0);
@@ -165,6 +166,7 @@ public class InvaderScript : MonoBehaviour
         if (HP <= 0)
         {
             Destroy(gameObject);
+            gameManager.GetComponent<InvaderGameManager>().AddScore();
         }
     }
 }

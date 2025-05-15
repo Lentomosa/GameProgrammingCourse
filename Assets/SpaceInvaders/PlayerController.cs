@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
     public BulletPool bulletPool;
     public Transform cannon;
+    public GameObject gameManager;
 
     //public float enemyBulletTime = 1f;
     //float enemyBulletThreshold = 0f;
@@ -89,6 +90,7 @@ public class PlayerController : MonoBehaviour
             canMove = false;
             canDamage = false;
             lives--;
+            gameManager.GetComponent<InvaderGameManager>().LoseLife();
             GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
             for (int i = 0; i < invaders.Length; i++)
             {
