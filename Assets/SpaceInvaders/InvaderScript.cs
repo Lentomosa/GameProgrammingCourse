@@ -34,7 +34,10 @@ public class InvaderScript : MonoBehaviour
     public bool canUseShield = false;
 
     public GameObject gameManager;
+
     public InvaderBulletPool invaderBulletPool;
+
+    public EnemyBulletPool bulletPool;
 
     private GameObject shieldInstance;
 
@@ -47,7 +50,8 @@ public class InvaderScript : MonoBehaviour
         Transform shield = transform.GetChild(0);
         shieldInstance = Instantiate(shieldPrefab, shield.position, shield.rotation, shield);
         shieldInstance.SetActive(false);
-        invaderBulletPool = GetComponent<InvaderBulletPool>();
+        //invaderBulletPool = GetComponent<InvaderBulletPool>();
+        bulletPool = GameObject.Find("Spawner").GetComponent<EnemyBulletPool>();
     }
 
     // Update is called once per frame
@@ -95,12 +99,12 @@ public class InvaderScript : MonoBehaviour
     // Shooting of pooled bullets
     public void Shoot()
     {
-        if (invaderBulletPool == null)
+        if (bulletPool == null)
         {
             Debug.LogError("InvaderGameManager reference is not assigned!");
             return;
         }
-        GameObject invaderBullet = invaderBulletPool.InvaderGetPooledBullet();
+        GameObject invaderBullet = bulletPool.GetPooledBullet();
         if (invaderBullet == null)
         {
             Debug.LogWarning("No inactive bullets available in the pool!");

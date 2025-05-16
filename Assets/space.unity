@@ -1194,6 +1194,21 @@ PrefabInstance:
       objectReference: {fileID: 512022090}
     - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
         type: 3}
+      propertyPath: bulletMaxTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
+        type: 3}
+      propertyPath: bulletMinTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
+        type: 3}
+      propertyPath: enemyBulletTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
+        type: 3}
       propertyPath: enemyShieldTime
       value: 1
       objectReference: {fileID: 0}
@@ -1758,6 +1773,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2146046035}
   - component: {fileID: 2146046034}
+  - component: {fileID: 2146046036}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -1799,3 +1815,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2146046036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146046033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4027c88449759a4dbb8c348ad9bc664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullets: []
+  bulletToPool: {fileID: 5984271301505279123, guid: 55e75d86e4da3084f8572328522a6978,
+    type: 3}
+  bulletAmount: 5

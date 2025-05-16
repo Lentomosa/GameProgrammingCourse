@@ -8,6 +8,8 @@ public class InvaderGameManager : MonoBehaviour
 {
 
     public float enemyBulletTime = 1f;
+    public float bulletMaxTime = 2f;
+    public float bulletMinTime = 1f;
     float enemyBulletThreshold = 0f;
     public float enemyShieldTime = 0f;
     float enemyShieldThreshold = 2f;
@@ -28,7 +30,10 @@ public class InvaderGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyBulletThreshold = Random.Range(3f, 8f);
+
+        score = PlayerPrefs.GetInt("Score");
+        Debug.Log(PlayerPrefs.GetInt("Score", score));
+        enemyBulletThreshold = Random.Range(bulletMinTime, bulletMaxTime);
 
         scoreUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString();
         livesUI.GetComponent<TextMeshProUGUI>().text = "Lives: " + lives.ToString();
@@ -54,7 +59,7 @@ public class InvaderGameManager : MonoBehaviour
             enemyBulletTime = 0f;
 
             // Generate a new random threshold for the next shot.
-            enemyBulletThreshold = Random.Range(3f, 8f);
+            enemyBulletThreshold = Random.Range(bulletMinTime, bulletMaxTime);
         }
 
         if (enemyShieldTime >= enemyShieldThreshold)
@@ -76,6 +81,9 @@ public class InvaderGameManager : MonoBehaviour
         score += 100;
         sessionScore += 100;
         scoreUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString();
+        Debug.Log(score);
+        PlayerPrefs.SetInt("Score", score);
+
     }
 
     public void LoseLife()
@@ -84,7 +92,7 @@ public class InvaderGameManager : MonoBehaviour
         livesUI.GetComponent<TextMeshProUGUI>().text = "Lives: " + lives.ToString();
         if (lives <= 0)
         {
-
+            PlayerPrefs.Save();
             //GameOver();
         }
 
