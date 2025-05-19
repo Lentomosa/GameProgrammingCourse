@@ -76,10 +76,10 @@ public class InvaderGameManager : MonoBehaviour
         }
     }
 
-    public void AddScore()
+    public void AddScore(int scoreAmount)
     {
-        score += 100;
-        sessionScore += 100;
+        score += scoreAmount;
+        sessionScore += scoreAmount;
         scoreUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString();
         Debug.Log(score);
         PlayerPrefs.SetInt("Score", score);
@@ -92,7 +92,7 @@ public class InvaderGameManager : MonoBehaviour
         livesUI.GetComponent<TextMeshProUGUI>().text = "Lives: " + lives.ToString();
         if (lives <= 0)
         {
-            PlayerPrefs.Save();
+            //PlayerPrefs.Save();
             //GameOver();
         }
 

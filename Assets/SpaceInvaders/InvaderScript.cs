@@ -170,7 +170,7 @@ public class InvaderScript : MonoBehaviour
         if (HP <= 0)
         {
             Destroy(gameObject);
-            gameManager.GetComponent<InvaderGameManager>().AddScore();
+            gameManager.GetComponent<InvaderGameManager>().AddScore(100);
         }
     }
 }
