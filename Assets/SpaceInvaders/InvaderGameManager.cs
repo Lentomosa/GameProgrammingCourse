@@ -61,7 +61,7 @@ public class InvaderGameManager : MonoBehaviour
         {
             GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
             GameObject invader = invaders[Random.Range(0, invaders.Length)];
-            invader.GetComponent<InvaderScript>().Shoot();
+            //invader.GetComponent<InvaderScript>().Shoot();
 
 
             // Reset the timer.
@@ -74,8 +74,17 @@ public class InvaderGameManager : MonoBehaviour
         if (enemyShieldTime >= enemyShieldThreshold)
         {
             GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
-            GameObject invader = invaders[Random.Range(0, invaders.Length)];
-            invader.GetComponent<InvaderScript>().canUseShield = true;
+            //GameObject invader = invaders[Random.Range(0, invaders.Length)];
+            //invader.GetComponent<InvaderScript>().canUseShield = true;
+
+
+            for (int i = 0; i < invaders.Length; i++)
+            {
+
+                invaders[i].GetComponent<InvaderScript>().ShieldTest();
+
+            }
+
 
             // Reset the timer.
             enemyShieldTime = 0f;

@@ -42,6 +42,8 @@ public class InvaderScript : MonoBehaviour
 
     private GameObject shieldInstance;
 
+    public float rayDistance = 10f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +60,9 @@ public class InvaderScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
- 
+
+
+
         if (canMove)
         {
             timer += Time.deltaTime;
@@ -71,6 +75,7 @@ public class InvaderScript : MonoBehaviour
                 timer = 0f;
             }
 
+            /*
             if (canUseShield)
             { 
 
@@ -89,6 +94,7 @@ public class InvaderScript : MonoBehaviour
                 canUseShield = false;
                 }
             }
+            */
 
             if (transform.position.y <= player.transform.position.y)
             {
@@ -175,6 +181,37 @@ public class InvaderScript : MonoBehaviour
         {
             Destroy(gameObject);
             gameManager.GetComponent<InvaderGameManager>().AddScore(100);
+        }
+    }
+
+    public void ShieldTest()
+    { 
+                // Optional: Draw the ray in the Scene view for debugging.
+    Debug.DrawRay(transform.position, Vector3.down* rayDistance, Color.red);
+
+        // Perform the raycast downward from the game object's position
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayDistance))
+        {
+            // Check if the hit object's tag matches the current object's tag
+            if (!hit.collider.CompareTag(gameObject.tag))
+            {
+                Debug.Log($"{gameObject.name} found an object with the same tag below: {hit.collider.gameObject.name}");
+                // Here you can add any further logic, e.g., trigger an event, change state, etc.
+
+
+                shieldInstance.SetActive(false);
+
+            }
+            else
+            {
+
+                shieldInstance.SetActive(false);
+
+            }
+        }
+        else
+        {
+            shieldInstance.SetActive(true);
         }
     }
 }

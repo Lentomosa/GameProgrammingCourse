@@ -161,6 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 1
   canMove: 1
+  canShoot: 1
   timer: 1
   changeTime: 1
   speed: 3
@@ -183,3 +184,4 @@ MonoBehaviour:
     type: 3}
   invaderBulletPool: {fileID: 0}
   bulletPool: {fileID: 0}
+  rayDistance: 5
