@@ -123,6 +123,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &57788567 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1339091050086153718, guid: d2c1e380ece6cea49a17b20676bf065b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1725928628}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &284811825
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,6 +1000,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &793633694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 793633695}
+  m_Layer: 0
+  m_Name: UfoLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &793633695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793633694}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.79, y: -1.5499995, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1150134618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,6 +1204,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
+        type: 3}
+      propertyPath: ufo
+      value: 
+      objectReference: {fileID: 57788567}
     - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
         type: 3}
       propertyPath: livesUI
@@ -1683,6 +1725,16 @@ PrefabInstance:
       propertyPath: speed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3711423751062286731, guid: d2c1e380ece6cea49a17b20676bf065b,
+        type: 3}
+      propertyPath: ufoLeftSpawn
+      value: 
+      objectReference: {fileID: 793633694}
+    - target: {fileID: 3711423751062286731, guid: d2c1e380ece6cea49a17b20676bf065b,
+        type: 3}
+      propertyPath: ufoRightSpawn
+      value: 
+      objectReference: {fileID: 1931589983}
     - target: {fileID: 3996901760382456557, guid: d2c1e380ece6cea49a17b20676bf065b,
         type: 3}
       propertyPath: m_RootOrder
@@ -1691,12 +1743,12 @@ PrefabInstance:
     - target: {fileID: 3996901760382456557, guid: d2c1e380ece6cea49a17b20676bf065b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.16
+      value: -9.35
       objectReference: {fileID: 0}
     - target: {fileID: 3996901760382456557, guid: d2c1e380ece6cea49a17b20676bf065b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.86
+      value: 1.16
       objectReference: {fileID: 0}
     - target: {fileID: 3996901760382456557, guid: d2c1e380ece6cea49a17b20676bf065b,
         type: 3}
@@ -1836,6 +1888,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1931589983
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1931589984}
+  m_Layer: 0
+  m_Name: UfoRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1931589984
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931589983}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.58, y: -1.55, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2146046033
 GameObject:

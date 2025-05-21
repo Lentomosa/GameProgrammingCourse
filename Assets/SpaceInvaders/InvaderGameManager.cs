@@ -14,6 +14,10 @@ public class InvaderGameManager : MonoBehaviour
     public float enemyShieldTime = 0f;
     float enemyShieldThreshold = 2f;
 
+    public float ufoTime = 1;
+    public bool ufoActive = false;
+    public GameObject ufo;
+
     public bool gameOver = false;
 
     public int score;
@@ -36,6 +40,8 @@ public class InvaderGameManager : MonoBehaviour
         Debug.Log(PlayerPrefs.GetInt("Score", score));
         enemyBulletThreshold = Random.Range(bulletMinTime, bulletMaxTime);
 
+        //ufo = GameObject.Find("Ufo");
+
         scoreUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString();
         livesUI.GetComponent<TextMeshProUGUI>().text = "Lives: " + lives.ToString();
         hiScoreUI.GetComponent<TextMeshProUGUI>().text = "Hiscore: " + hiScore.ToString();
@@ -48,6 +54,7 @@ public class InvaderGameManager : MonoBehaviour
     {
         enemyBulletTime += Time.deltaTime;
         enemyShieldTime += Time.deltaTime;
+
 
         if (enemyBulletTime >= enemyBulletThreshold)
         {
@@ -74,6 +81,17 @@ public class InvaderGameManager : MonoBehaviour
 
 
 
+        }
+
+        if (!ufoActive)
+        {
+            ufoTime += Time.deltaTime;
+        }
+
+        if (ufoTime >= 5 && !ufoActive)
+        {
+            ufo.GetComponent<UfoScript>().ActivateUfo();
+            ufoTime = 0;
         }
     }
 
@@ -105,5 +123,11 @@ public class InvaderGameManager : MonoBehaviour
             //GameOver();
         }
 
+    }
+
+    public void UfoKilled()
+    {
+        ufoActive = false;
+        ufoTime = 0;
     }
 }
