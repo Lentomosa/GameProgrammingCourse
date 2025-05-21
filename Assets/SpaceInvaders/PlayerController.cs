@@ -96,7 +96,11 @@ public class PlayerController : MonoBehaviour
             {
                 invaders[i].GetComponent<InvaderScript>().canMove = false;
             }
+
+            //if()
+           // { 
             StartCoroutine(Continue());
+            //}
         }
     }
 

@@ -121,10 +121,17 @@ public class InvaderGameManager : MonoBehaviour
             scoreUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString();
             hiScoreUI.GetComponent<TextMeshProUGUI>().text = "HiScore: " + hiScore.ToString();
             //PlayerPrefs.Save();
-            //GameOver();
-            SceneManager.LoadScene("MenuLevel");
+            GameOver();
+
+            //SceneManager.LoadScene("MenuLevel");
         }
 
+    }
+
+    public void GameOver()
+    {
+        gameOverText.SetActive(true);
+        retryButton.SetActive(true);
     }
 
     public void UfoKilled()
