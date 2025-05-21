@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InvaderGameManager : MonoBehaviour
 {
@@ -121,6 +122,7 @@ public class InvaderGameManager : MonoBehaviour
             hiScoreUI.GetComponent<TextMeshProUGUI>().text = "HiScore: " + hiScore.ToString();
             //PlayerPrefs.Save();
             //GameOver();
+            SceneManager.LoadScene("MenuLevel");
         }
 
     }
