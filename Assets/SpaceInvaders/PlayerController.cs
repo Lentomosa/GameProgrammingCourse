@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         bulletPool = GetComponent<BulletPool>();
+        lives = gameManager.GetComponent<InvaderGameManager>().lives;
         // Set the initial random threshold once.
         //enemyBulletThreshold = Random.Range(3f, 8f);
     }
@@ -91,16 +92,23 @@ public class PlayerController : MonoBehaviour
             canDamage = false;
             lives--;
             gameManager.GetComponent<InvaderGameManager>().LoseLife();
+            
+
+            /*
             GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
             for (int i = 0; i < invaders.Length; i++)
             {
                 invaders[i].GetComponent<InvaderScript>().canMove = false;
             }
 
-            //if()
-           // { 
-            StartCoroutine(Continue());
-            //}
+            */
+
+            if(lives > 0)
+            {
+                StartCoroutine(Continue());
+            }
+            
+
         }
     }
 
@@ -109,13 +117,16 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         transform.position = new Vector3(0f, -5f, 0f);
         canMove = true;
+        gameManager.GetComponent<InvaderGameManager>().Continue();
 
-        GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
+        
+       /* GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < invaders.Length; i++)
         {
             invaders[i].GetComponent<InvaderScript>().canMove = true;
             invaders[i].GetComponent<InvaderScript>().changeTime += 0.4f;
         }
+        */
 
         yield return new WaitForSeconds(1f);
         canDamage = true;

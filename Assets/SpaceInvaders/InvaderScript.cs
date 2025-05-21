@@ -6,6 +6,7 @@ public class InvaderScript : MonoBehaviour
 {
     public int HP = 1;
     public bool canMove = true;
+    public bool canShoot = true;
     public float timer;
     public float changeTime = 1f;
     public float speed = 3f;
@@ -99,30 +100,33 @@ public class InvaderScript : MonoBehaviour
     // Shooting of pooled bullets
     public void Shoot()
     {
-        if (bulletPool == null)
+        if (canShoot)
         {
-            Debug.LogError("InvaderGameManager reference is not assigned!");
-            return;
+            if (bulletPool == null)
+            {
+                Debug.LogError("InvaderGameManager reference is not assigned!");
+                return;
+            }
+            GameObject invaderBullet = bulletPool.GetPooledBullet();
+            if (invaderBullet == null)
+            {
+                Debug.LogWarning("No inactive bullets available in the pool!");
+                return;
+            }
+            // Position the bullet at the gun's position if available.
+            if (gun != null)
+            {
+                invaderBullet.transform.position = gun.position;
+                invaderBullet.transform.rotation = gun.rotation;
+            }
+            else
+            {
+                Debug.LogWarning("Gun transform is not assigned; using invader's position.");
+                invaderBullet.transform.position = transform.position;
+            }
+            invaderBullet.SetActive(true);
+            Debug.Log("Bullet activated at position: " + invaderBullet.transform.position);
         }
-        GameObject invaderBullet = bulletPool.GetPooledBullet();
-        if (invaderBullet == null)
-        {
-            Debug.LogWarning("No inactive bullets available in the pool!");
-            return;
-        }
-        // Position the bullet at the gun's position if available.
-        if (gun != null)
-        {
-            invaderBullet.transform.position = gun.position;
-            invaderBullet.transform.rotation = gun.rotation;
-        }
-        else
-        {
-            Debug.LogWarning("Gun transform is not assigned; using invader's position.");
-            invaderBullet.transform.position = transform.position;
-        }
-        invaderBullet.SetActive(true);
-        Debug.Log("Bullet activated at position: " + invaderBullet.transform.position);
     }
 
     public void Move()

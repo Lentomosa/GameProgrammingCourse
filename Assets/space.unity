@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bd6a52e8abf0eb44850ce01da19604f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: 1
+  lives: 3
   canDamage: 1
   canMove: 1
   speed: 5
@@ -1803,6 +1803,11 @@ PrefabInstance:
     - target: {fileID: 1339091050086153718, guid: d2c1e380ece6cea49a17b20676bf065b,
         type: 3}
       propertyPath: m_Name
+      value: Ufo
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339091050086153718, guid: d2c1e380ece6cea49a17b20676bf065b,
+        type: 3}
+      propertyPath: m_TagString
       value: Ufo
       objectReference: {fileID: 0}
     - target: {fileID: 3711423751062286731, guid: d2c1e380ece6cea49a17b20676bf065b,

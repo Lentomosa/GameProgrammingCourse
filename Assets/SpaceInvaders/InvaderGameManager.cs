@@ -112,6 +112,20 @@ public class InvaderGameManager : MonoBehaviour
         lives -= 1;
         livesUI.GetComponent<TextMeshProUGUI>().text = "Lives: " + lives.ToString();
 
+        GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] ufos = GameObject.FindGameObjectsWithTag("Ufo");
+        for (int i = 0; i < invaders.Length; i++)
+        {
+            invaders[i].GetComponent<InvaderScript>().canMove = false;
+            invaders[i].GetComponent<InvaderScript>().canShoot = false;
+            
+        }
+
+        for (int i = 0; i < ufos.Length; i++)
+        {
+            ufos[i].GetComponent<UfoScript>().canMove = false;
+        }
+
 
         if (lives <= 0)
         {
@@ -128,10 +142,30 @@ public class InvaderGameManager : MonoBehaviour
 
     }
 
+    public void Continue()
+    {
+
+        GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] ufos = GameObject.FindGameObjectsWithTag("Ufo");
+        for (int i = 0; i < invaders.Length; i++)
+        {
+            invaders[i].GetComponent<InvaderScript>().canMove = true;
+            invaders[i].GetComponent<InvaderScript>().changeTime += 0.4f;
+            invaders[i].GetComponent<InvaderScript>().canShoot = true;
+           
+        }
+
+        for (int i = 0; i < ufos.Length; i++)
+        {
+            ufos[i].GetComponent<UfoScript>().canMove = true;
+        }
+    }
+
     public void GameOver()
     {
         gameOverText.SetActive(true);
         retryButton.SetActive(true);
+
     }
 
     public void UfoKilled()
@@ -139,4 +173,6 @@ public class InvaderGameManager : MonoBehaviour
         ufoActive = false;
         ufoTime = 0;
     }
+
+
 }
