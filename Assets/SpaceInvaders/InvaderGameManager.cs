@@ -139,7 +139,7 @@ public class InvaderGameManager : MonoBehaviour
         if (myObjects != null)
         {
             int shieldListLenght = myObjects.Count;
-            GameObject shieldInvader = myObjects[Random.Range(0, 5)];
+            GameObject shieldInvader = myObjects[Random.Range(0, shieldListLenght)];
             shieldInvader.GetComponent<InvaderScript>().canUseShield = true;
             myObjects.Clear();
 
