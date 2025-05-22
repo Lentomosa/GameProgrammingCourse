@@ -12,6 +12,7 @@ TagManager:
   - PlayerBullet
   - Shield
   - Ufo
+  - EnemyFront
   layers:
   - Default
   - TransparentFX

@@ -13,7 +13,7 @@ public class InvaderGameManager : MonoBehaviour
     public float bulletMinTime = 1f;
     float enemyBulletThreshold = 0f;
     public float enemyShieldTime = 0f;
-    float enemyShieldThreshold = 2f;
+    public float enemyShieldThreshold = 2f;
 
     public float ufoTime = 1;
     public bool ufoActive = false;
@@ -31,6 +31,8 @@ public class InvaderGameManager : MonoBehaviour
     public GameObject hiScoreUI;
     public GameObject retryButton;
     public GameObject gameOverText;
+
+    public List<GameObject> myObjects;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +75,8 @@ public class InvaderGameManager : MonoBehaviour
 
         if (enemyShieldTime >= enemyShieldThreshold)
         {
+
+
             GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
             //GameObject invader = invaders[Random.Range(0, invaders.Length)];
             //invader.GetComponent<InvaderScript>().canUseShield = true;
@@ -85,13 +89,14 @@ public class InvaderGameManager : MonoBehaviour
 
             }
 
-
             // Reset the timer.
             enemyShieldTime = 0f;
-
+            ActivateShields();
 
 
         }
+
+
 
         if (!ufoActive)
         {
@@ -105,7 +110,49 @@ public class InvaderGameManager : MonoBehaviour
         }
     }
 
-    public void AddScore(int scoreAmount)
+
+    public void ActivateShields()
+    {
+        GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
+        //GameObject invader = invaders[Random.Range(0, invaders.Length)];
+        //invader.GetComponent<InvaderScript>().canUseShield = true;
+
+
+
+        if (invaders != null)
+
+        {
+            foreach (GameObject obj in invaders)
+            {
+                InvaderScript script = obj.GetComponent<InvaderScript>(); 
+
+                if (script != null && !script.hasObstacle)
+                {
+                    myObjects.Add(obj);
+                    //obj.GetComponent<InvaderScript>().canUseShield = true;
+                    
+                }
+            }
+            
+        }
+
+        if (myObjects != null)
+        {
+            int shieldListLenght = myObjects.Count;
+            GameObject shieldInvader = myObjects[Random.Range(0, 5)];
+            shieldInvader.GetComponent<InvaderScript>().canUseShield = true;
+            myObjects.Clear();
+
+        }
+    }
+
+    public void ChooseInvader()
+    {
+
+
+    }
+
+        public void AddScore(int scoreAmount)
     {
         score += scoreAmount;
         hiScore += scoreAmount;

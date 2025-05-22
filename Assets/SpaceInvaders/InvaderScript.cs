@@ -33,6 +33,7 @@ public class InvaderScript : MonoBehaviour
     public float shieldTime = 3f;
     public bool shieldActive = false;
     public bool canUseShield = false;
+    public bool hasObstacle = false;
 
     public GameObject gameManager;
 
@@ -42,7 +43,7 @@ public class InvaderScript : MonoBehaviour
 
     private GameObject shieldInstance;
 
-    public float rayDistance = 10f;
+    public float rayDistance = 20f;
 
     // Start is called before the first frame update
     void Start()
@@ -75,7 +76,7 @@ public class InvaderScript : MonoBehaviour
                 timer = 0f;
             }
 
-            /*
+            
             if (canUseShield)
             { 
 
@@ -94,7 +95,7 @@ public class InvaderScript : MonoBehaviour
                 canUseShield = false;
                 }
             }
-            */
+            
 
             if (transform.position.y <= player.transform.position.y)
             {
@@ -184,34 +185,94 @@ public class InvaderScript : MonoBehaviour
         }
     }
 
+    public void SendShieldCandidates()
+    {
+        gameManager.GetComponent<InvaderGameManager>().ActivateShields();
+    }
+
     public void ShieldTest()
-    { 
-                // Optional: Draw the ray in the Scene view for debugging.
-    Debug.DrawRay(transform.position, Vector3.down* rayDistance, Color.red);
+    {
+        //Draw a debug ray.
+        Debug.DrawRay(transform.position, Vector3.down * rayDistance, Color.red);
 
-        // Perform the raycast downward from the game object's position
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayDistance))
+        // Raycast ALL.
+
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, Vector3.down, rayDistance);
+
+        // If any collider is hit.
+
+        if (hits.Length > 0)
         {
-            // Check if the hit object's tag matches the current object's tag
-            if (!hit.collider.CompareTag(gameObject.tag))
+
+
+            foreach (RaycastHit hit in hits)
             {
-                Debug.Log($"{gameObject.name} found an object with the same tag below: {hit.collider.gameObject.name}");
-                // Here you can add any further logic, e.g., trigger an event, change state, etc.
-
-
-                shieldInstance.SetActive(false);
-
+                // Check if a game object with a similar tag is hit by the ray.
+                if (hit.collider.CompareTag(gameObject.tag))
+                {
+                    Debug.Log($"{gameObject.name} found an object with the same tag below: {hit.collider.gameObject.name}");
+                    //canUseShield = false;
+                    //gameObject.tag = "Enemy";
+                    hasObstacle = true;
+                }
+                // No game objects with a similar tag found.
+                else
+                {
+                    Debug.Log($"{gameObject.name} found an object with a different tag below: {hit.collider.gameObject.name}");
+                    //canUseShield = true;
+                    //gameObject.tag = "EnemyFront";
+                    hasObstacle = false;
+                }
             }
-            else
-            {
 
-                shieldInstance.SetActive(false);
+            // Deactivate the shield if any object is hit.
+            //canUseShield = false;
+            //gameObject.tag = "Enemy";
+            hasObstacle = true;
 
-            }
+        }
+
+        else
+        {
+            // Activate the shield if no objects are detected.
+            // canUseShield = true;
+            //gameObject.tag = "EnemyFront";
+            //SendShieldCandidates();
+            hasObstacle = false;
+        }
+    
+
+
+
+
+    /*
+            // Optional: Draw the ray in the Scene view for debugging.
+Debug.DrawRay(transform.position, Vector3.down* rayDistance, Color.red);
+
+    // Perform the raycast downward from the game object's position
+    if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayDistance))
+    {
+        // Check if the hit object's tag matches the current object's tag
+        if (!hit.collider.CompareTag(gameObject.tag))
+        {
+            Debug.Log($"{gameObject.name} found an object with the same tag below: {hit.collider.gameObject.name}");
+            // Here you can add any further logic, e.g., trigger an event, change state, etc.
+
+
+            shieldInstance.SetActive(false);
+
         }
         else
         {
-            shieldInstance.SetActive(true);
+
+            shieldInstance.SetActive(false);
+
         }
+    }
+    else
+    {
+        shieldInstance.SetActive(true);
+    }
+    */
     }
 }

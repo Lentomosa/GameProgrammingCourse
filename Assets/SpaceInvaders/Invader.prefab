@@ -162,7 +162,7 @@ MonoBehaviour:
   HP: 1
   canMove: 1
   canShoot: 1
-  timer: 1
+  timer: 0
   changeTime: 1
   speed: 3
   offSetX: 1
