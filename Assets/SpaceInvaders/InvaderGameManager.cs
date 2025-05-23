@@ -41,6 +41,8 @@ public class InvaderGameManager : MonoBehaviour
 
         score = PlayerPrefs.GetInt("Score");
         hiScore = PlayerPrefs.GetInt("HiScore");
+ 
+
         Debug.Log(PlayerPrefs.GetInt("Score", score));
         enemyBulletThreshold = Random.Range(bulletMinTime, bulletMaxTime);
 
@@ -157,8 +159,8 @@ public class InvaderGameManager : MonoBehaviour
         public void AddScore(int scoreAmount)
     {
         score += scoreAmount;
-        hiScore += scoreAmount;
-        sessionScore += scoreAmount;
+        //hiScore += scoreAmount;
+        //sessionScore += scoreAmount;
         scoreUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString();
         Debug.Log(score);
         PlayerPrefs.SetInt("Score", score);
@@ -187,6 +189,15 @@ public class InvaderGameManager : MonoBehaviour
 
         if (lives <= 0)
         {
+
+            if(score > hiScore)
+            {
+                hiScore = score;
+
+            }
+           
+
+
             score = 0;
             PlayerPrefs.SetInt("Score", score);
             PlayerPrefs.SetInt("HiScore", hiScore);
