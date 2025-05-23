@@ -21,4 +21,9 @@ public class MyMenuScript : MonoBehaviour
     {
         SceneManager.LoadScene(levelName);
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
