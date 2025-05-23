@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class InvaderGameManager : MonoBehaviour
 {
@@ -25,7 +26,9 @@ public class InvaderGameManager : MonoBehaviour
     public int sessionScore;
     public int hiScore;
     public int lives = 3;
+    public float invaderChangeTime = 1;
 
+    public GameObject invaderSpawner;
     public GameObject scoreUI;
     public GameObject livesUI;
     public GameObject hiScoreUI;
@@ -34,6 +37,7 @@ public class InvaderGameManager : MonoBehaviour
     public GameObject gameOverText;
 
     public List<GameObject> myObjects;
+    public GameObject[] invaders;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +45,8 @@ public class InvaderGameManager : MonoBehaviour
 
         score = PlayerPrefs.GetInt("Score");
         hiScore = PlayerPrefs.GetInt("HiScore");
- 
+
+        invaderChangeTime = PlayerPrefs.GetFloat("InvaderChangeTime");
 
         Debug.Log(PlayerPrefs.GetInt("Score", score));
         enemyBulletThreshold = Random.Range(bulletMinTime, bulletMaxTime);
@@ -62,10 +67,17 @@ public class InvaderGameManager : MonoBehaviour
         enemyBulletTime += Time.deltaTime;
         enemyShieldTime += Time.deltaTime;
 
-
+        
         if (enemyBulletTime >= enemyBulletThreshold)
         {
+
+
             GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
+
+            if (invaders.Length > 1)
+            {
+
+
             GameObject invader = invaders[Random.Range(0, invaders.Length)];
             invader.GetComponent<InvaderScript>().Shoot();
 
@@ -75,32 +87,38 @@ public class InvaderGameManager : MonoBehaviour
 
             // Generate a new random threshold for the next shot.
             enemyBulletThreshold = Random.Range(bulletMinTime, bulletMaxTime);
-        }
-
-        if (enemyShieldTime >= enemyShieldThreshold)
-        {
-
-
-            GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
-            //GameObject invader = invaders[Random.Range(0, invaders.Length)];
-            //invader.GetComponent<InvaderScript>().canUseShield = true;
-
-
-            for (int i = 0; i < invaders.Length; i++)
-            {
-
-                invaders[i].GetComponent<InvaderScript>().ShieldTest();
-
             }
-
-            // Reset the timer.
-            enemyShieldTime = 0f;
-            ActivateShields();
-
-
         }
 
+        
 
+         if (enemyShieldTime >= enemyShieldThreshold)
+         {
+
+
+             GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
+
+             if (invaders.Length > 1)
+            {
+                 //GameObject invader = invaders[Random.Range(0, invaders.Length)];
+                 //invader.GetComponent<InvaderScript>().canUseShield = true;
+
+
+                 for (int i = 0; i < invaders.Length; i++)
+             {
+                 print("ShieldTest!");
+                 invaders[i].GetComponent<InvaderScript>().ShieldTest();
+                
+             }
+
+             // Reset the timer.
+             enemyShieldTime = 0f;
+             ActivateShields();
+             }
+
+         }
+
+     
 
         if (!ufoActive)
         {
@@ -123,7 +141,7 @@ public class InvaderGameManager : MonoBehaviour
 
 
 
-        if (invaders != null)
+       if (invaders.Length > 1)
 
         {
             foreach (GameObject obj in invaders)
@@ -138,15 +156,18 @@ public class InvaderGameManager : MonoBehaviour
                 }
             }
             
-        }
+       }
 
         if (myObjects != null)
         {
             int shieldListLenght = myObjects.Count;
+
+            //if (shieldListLenght > 2)
+            //{ 
             GameObject shieldInvader = myObjects[Random.Range(0, shieldListLenght)];
             shieldInvader.GetComponent<InvaderScript>().canUseShield = true;
             myObjects.Clear();
-
+            //}
         }
     }
 
@@ -236,6 +257,9 @@ public class InvaderGameManager : MonoBehaviour
         retryButton.SetActive(true);
         menuButton.SetActive(true);
 
+        invaderChangeTime = 1f;
+        PlayerPrefs.SetFloat("InvaderChangeTime", invaderChangeTime);
+        PlayerPrefs.Save();
     }
 
     public void UfoKilled()
@@ -243,6 +267,41 @@ public class InvaderGameManager : MonoBehaviour
         ufoActive = false;
         ufoTime = 0;
     }
+
+    public void InvaderKilled()
+    {
+
+        print("INVADERKILLED CALLED");
+        invaders = GameObject.FindGameObjectsWithTag("Enemy");
+        print(invaders);
+        if (invaders.Length <= 1)
+        {
+            invaderSpawner.GetComponent<AlienSpawner>().InvaderSpawn();
+            print("ALL DEAD");
+            IncreaseDifficulty();
+        }
+    }
+
+    public void IncreaseDifficulty()
+
+    {
+        if(invaderChangeTime > 0.4f)
+        { 
+        invaderChangeTime -= 0.2f;
+        }
+        PlayerPrefs.SetFloat("InvaderChangeTime", invaderChangeTime);
+
+        GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
+        for (int i = 0; i < invaders.Length; i++)
+        {
+
+            invaders[i].GetComponent<InvaderScript>().changeTime = invaderChangeTime;
+            
+        }
+ 
+
+    }
+
 
 
 }

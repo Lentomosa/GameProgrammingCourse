@@ -48,6 +48,8 @@ public class InvaderScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        speedLeft = -speed;
+        speedRight = speed;
         gameManager = GameObject.Find("GameManager");
         player = GameObject.Find("Player").transform;
         gun = transform.GetChild(0);
@@ -182,6 +184,8 @@ public class InvaderScript : MonoBehaviour
         {
             Destroy(gameObject);
             gameManager.GetComponent<InvaderGameManager>().AddScore(100);
+            gameManager.GetComponent<InvaderGameManager>().InvaderKilled();
+
         }
     }
 
@@ -228,7 +232,7 @@ public class InvaderScript : MonoBehaviour
             // Deactivate the shield if any object is hit.
             //canUseShield = false;
             //gameObject.tag = "Enemy";
-            hasObstacle = true;
+            //hasObstacle = false;
 
         }
 

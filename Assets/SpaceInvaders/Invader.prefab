@@ -164,7 +164,7 @@ MonoBehaviour:
   canShoot: 1
   timer: 0
   changeTime: 1
-  speed: 3
+  speed: 1
   offSetX: 1
   speedLeft: -1
   speedRight: 1
@@ -180,6 +180,7 @@ MonoBehaviour:
   shieldTime: 3
   shieldActive: 0
   canUseShield: 0
+  hasObstacle: 0
   gameManager: {fileID: 7104639987438362468, guid: d0b6723366dd11943bbf87ffc98cfc37,
     type: 3}
   invaderBulletPool: {fileID: 0}

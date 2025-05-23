@@ -14,6 +14,8 @@ public class AlienSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InvaderSpawn();
+        /*
         startPos = transform.position;
         // Loop through grid indices to instantiate aliens as children of this container
         for (int row = 0; row < rows; row++)
@@ -24,11 +26,27 @@ public class AlienSpawner : MonoBehaviour
                 Instantiate(alienPrefab, spawnPos, Quaternion.identity, transform);
             }
         }
+        */
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+
+    public void InvaderSpawn()
+    {
+        startPos = transform.position;
+        // Loop through grid indices to instantiate aliens as children of this container
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < columns; col++)
+            {
+                Vector3 spawnPos = startPos + new Vector3(col * spacingX, -row * spacingY, 0);
+                Instantiate(alienPrefab, spawnPos, Quaternion.identity, transform);
+            }
+        }
     }
 }
