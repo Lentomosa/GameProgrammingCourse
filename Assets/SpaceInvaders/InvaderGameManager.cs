@@ -30,6 +30,7 @@ public class InvaderGameManager : MonoBehaviour
     public GameObject livesUI;
     public GameObject hiScoreUI;
     public GameObject retryButton;
+    public GameObject menuButton;
     public GameObject gameOverText;
 
     public List<GameObject> myObjects;
@@ -50,6 +51,7 @@ public class InvaderGameManager : MonoBehaviour
         hiScoreUI.GetComponent<TextMeshProUGUI>().text = "Hiscore: " + hiScore.ToString();
         retryButton.SetActive(false);
         gameOverText.SetActive(false);
+        menuButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -63,7 +65,7 @@ public class InvaderGameManager : MonoBehaviour
         {
             GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
             GameObject invader = invaders[Random.Range(0, invaders.Length)];
-            //invader.GetComponent<InvaderScript>().Shoot();
+            invader.GetComponent<InvaderScript>().Shoot();
 
 
             // Reset the timer.
@@ -221,6 +223,7 @@ public class InvaderGameManager : MonoBehaviour
     {
         gameOverText.SetActive(true);
         retryButton.SetActive(true);
+        menuButton.SetActive(true);
 
     }
 
