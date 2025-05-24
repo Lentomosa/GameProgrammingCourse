@@ -36,7 +36,7 @@ public class InvaderGameManager : MonoBehaviour
     public GameObject menuButton;
     public GameObject gameOverText;
 
-    public List<GameObject> myObjects;
+    public List<GameObject> shieldInvaders;
     public GameObject[] invaders;
 
     // Start is called before the first frame update
@@ -150,7 +150,7 @@ public class InvaderGameManager : MonoBehaviour
 
                 if (script != null && !script.hasObstacle)
                 {
-                    myObjects.Add(obj);
+                    shieldInvaders.Add(obj);
                     //obj.GetComponent<InvaderScript>().canUseShield = true;
                     
                 }
@@ -158,15 +158,15 @@ public class InvaderGameManager : MonoBehaviour
             
        }
 
-        if (myObjects != null)
+        if (shieldInvaders != null)
         {
-            int shieldListLenght = myObjects.Count;
+            int shieldListLenght = shieldInvaders.Count;
 
             //if (shieldListLenght > 2)
             //{ 
-            GameObject shieldInvader = myObjects[Random.Range(0, shieldListLenght)];
+            GameObject shieldInvader = shieldInvaders[Random.Range(0, shieldListLenght)];
             shieldInvader.GetComponent<InvaderScript>().canUseShield = true;
-            myObjects.Clear();
+            shieldInvaders.Clear();
             //}
         }
     }
