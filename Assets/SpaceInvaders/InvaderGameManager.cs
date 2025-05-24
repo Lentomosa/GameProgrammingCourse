@@ -281,6 +281,7 @@ public class InvaderGameManager : MonoBehaviour
 
     public void ClosePauseMenu()
     {
+        pauseMenuOpen = false;
         gameOverText.SetActive(false);
         retryButton.SetActive(false);
         menuButton.SetActive(false);
