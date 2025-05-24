@@ -7,6 +7,7 @@ public class PlayerBullet : MonoBehaviour
     
     public bool bulletReflected = false;
     public float bulletSpeed = 10f;
+    public bool canMove = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,24 +17,27 @@ public class PlayerBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!bulletReflected)
+        if (canMove)
         {
-            transform.Translate(Vector2.up * bulletSpeed * Time.deltaTime);
-        }
+            if (!bulletReflected)
+            {
+                transform.Translate(Vector2.up * bulletSpeed * Time.deltaTime);
+            }
 
-        if (bulletReflected)
-        {
-            transform.Translate(Vector2.down * bulletSpeed * Time.deltaTime);
-        }
+            if (bulletReflected)
+            {
+                transform.Translate(Vector2.down * bulletSpeed * Time.deltaTime);
+            }
 
-        if (transform.position.y > 10f)
-        {
-            gameObject.SetActive(false);
-        }
+            if (transform.position.y > 10f)
+            {
+                gameObject.SetActive(false);
+            }
 
-        if (transform.position.y < -10f)
-        {
-            gameObject.SetActive(false);
+            if (transform.position.y < -10f)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 

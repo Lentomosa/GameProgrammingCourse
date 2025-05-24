@@ -21,6 +21,8 @@ public class InvaderGameManager : MonoBehaviour
     public GameObject ufo;
 
     public bool gameOver = false;
+    public bool pauseMenuOpen = false;
+    public bool gamePaused = false;
 
     public int score;
     public int sessionScore;
@@ -28,12 +30,14 @@ public class InvaderGameManager : MonoBehaviour
     public int lives = 3;
     public float invaderChangeTime = 1;
 
+    public GameObject player;
     public GameObject invaderSpawner;
     public GameObject scoreUI;
     public GameObject livesUI;
     public GameObject hiScoreUI;
     public GameObject retryButton;
     public GameObject menuButton;
+    public GameObject continueButton;
     public GameObject gameOverText;
 
     public List<GameObject> shieldInvaders;
@@ -59,15 +63,18 @@ public class InvaderGameManager : MonoBehaviour
         retryButton.SetActive(false);
         gameOverText.SetActive(false);
         menuButton.SetActive(false);
+        continueButton.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!gamePaused)
+        { 
         enemyBulletTime += Time.deltaTime;
         enemyShieldTime += Time.deltaTime;
+        }
 
-        
         if (enemyBulletTime >= enemyBulletThreshold)
         {
 
@@ -118,9 +125,25 @@ public class InvaderGameManager : MonoBehaviour
 
          }
 
-     
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!pauseMenuOpen)
+            {
+                PauseMenu();
+                pauseMenuOpen = true;
+            }
+            else
+            {
+                Continue();
+                pauseMenuOpen = false;
+            }
 
-        if (!ufoActive)
+
+        }
+
+
+
+            if (!ufoActive)
         {
             ufoTime += Time.deltaTime;
         }
@@ -192,7 +215,10 @@ public class InvaderGameManager : MonoBehaviour
     {
         lives -= 1;
         livesUI.GetComponent<TextMeshProUGUI>().text = "Lives: " + lives.ToString();
-
+        gamePaused = true;
+        DisableEnemies();
+        DisablePlayer();
+        /*
         GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] ufos = GameObject.FindGameObjectsWithTag("Ufo");
         for (int i = 0; i < invaders.Length; i++)
@@ -206,7 +232,7 @@ public class InvaderGameManager : MonoBehaviour
         {
             ufos[i].GetComponent<UfoScript>().canMove = false;
         }
-
+        */
 
         if (lives <= 0)
         {
@@ -232,23 +258,33 @@ public class InvaderGameManager : MonoBehaviour
 
     }
 
+    public void ResetHiscore()
+    {
+        PlayerPrefs.SetInt("HiScore", 0);
+        PlayerPrefs.Save();
+    }
+
+    public void ResetScore()
+    {
+        PlayerPrefs.SetInt("Score", 0);
+    }
+
     public void Continue()
     {
 
-        GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject[] ufos = GameObject.FindGameObjectsWithTag("Ufo");
-        for (int i = 0; i < invaders.Length; i++)
-        {
-            invaders[i].GetComponent<InvaderScript>().canMove = true;
-            invaders[i].GetComponent<InvaderScript>().changeTime += 0.4f;
-            invaders[i].GetComponent<InvaderScript>().canShoot = true;
-           
-        }
 
-        for (int i = 0; i < ufos.Length; i++)
-        {
-            ufos[i].GetComponent<UfoScript>().canMove = true;
-        }
+        ClosePauseMenu();
+        EnablePlayer();
+        gamePaused = false;
+        EnableEnemies();
+    }
+
+    public void ClosePauseMenu()
+    {
+        gameOverText.SetActive(false);
+        retryButton.SetActive(false);
+        menuButton.SetActive(false);
+        continueButton.SetActive(false);
     }
 
     public void GameOver()
@@ -257,9 +293,107 @@ public class InvaderGameManager : MonoBehaviour
         retryButton.SetActive(true);
         menuButton.SetActive(true);
 
+
+        DisableEnemies();
+        DisablePlayer();
+        ResetScore();
+
         invaderChangeTime = 1f;
         PlayerPrefs.SetFloat("InvaderChangeTime", invaderChangeTime);
         PlayerPrefs.Save();
+    }
+
+    public void DisablePlayer()
+    {
+        player.GetComponent<PlayerController>().canMove = false;
+        player.GetComponent<PlayerController>().canDamage = false;
+        player.GetComponent<PlayerController>().canShoot = false;
+
+        GameObject[] playerBullets = GameObject.FindGameObjectsWithTag("PlayerBullet");
+        for (int i = 0; i < playerBullets.Length; i++)
+        {
+            playerBullets[i].GetComponent<PlayerBullet>().canMove = false;
+
+        }
+
+    }
+
+    public void EnablePlayer()
+    {
+        player.GetComponent<PlayerController>().canMove = true;
+        player.GetComponent<PlayerController>().canDamage = true;
+        player.GetComponent<PlayerController>().canShoot = true;
+
+        GameObject[] playerBullets = GameObject.FindGameObjectsWithTag("PlayerBullet");
+        for (int i = 0; i < playerBullets.Length; i++)
+        {
+            playerBullets[i].GetComponent<PlayerBullet>().canMove = true;
+
+        }
+
+    }
+
+    public void DisableEnemies()
+    {
+        GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] ufos = GameObject.FindGameObjectsWithTag("Ufo");
+        for (int i = 0; i < invaders.Length; i++)
+        {
+            invaders[i].GetComponent<InvaderScript>().canMove = false;
+            invaders[i].GetComponent<InvaderScript>().canShoot = false;
+
+        }
+
+        for (int i = 0; i < ufos.Length; i++)
+        {
+            ufos[i].GetComponent<UfoScript>().canMove = false;
+        }
+
+        GameObject[] invaderBullets = GameObject.FindGameObjectsWithTag("EnemyBullet");
+        for (int i = 0; i < invaderBullets.Length; i++)
+        {
+            invaderBullets[i].GetComponent<EnemyBullet>().canMove = false;
+
+        }
+    }
+
+    public void EnableEnemies()
+    {
+        GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] ufos = GameObject.FindGameObjectsWithTag("Ufo");
+        for (int i = 0; i < invaders.Length; i++)
+        {
+            invaders[i].GetComponent<InvaderScript>().canMove = true;
+            //invaders[i].GetComponent<InvaderScript>().changeTime += 0.4f;
+            invaders[i].GetComponent<InvaderScript>().canShoot = true;
+
+        }
+
+        for (int i = 0; i < ufos.Length; i++)
+        {
+            ufos[i].GetComponent<UfoScript>().canMove = true;
+        }
+
+        GameObject[] invaderBullets = GameObject.FindGameObjectsWithTag("EnemyBullet");
+
+        for (int i = 0; i < invaderBullets.Length; i++)
+        {
+            invaderBullets[i].GetComponent<EnemyBullet>().canMove = true;
+
+        }
+
+    }
+
+    public void PauseMenu()
+    {
+
+        DisableEnemies();
+        DisablePlayer();
+        continueButton.SetActive(true);
+        retryButton.SetActive(true);
+        menuButton.SetActive(true);
+        gamePaused = true;
+
     }
 
     public void UfoKilled()
@@ -301,6 +435,8 @@ public class InvaderGameManager : MonoBehaviour
  
 
     }
+
+
 
 
 

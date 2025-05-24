@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public int lives = 3;
     public bool canDamage = true;
     public bool canMove = true;
+    public bool canShoot = true;
     public float speed = 5f;
     public BulletPool bulletPool;
     public Transform cannon;
@@ -38,8 +39,11 @@ public class PlayerController : MonoBehaviour
 
              if(Input.GetButtonDown("Fire1") && canMove)
              {
+                if(canShoot)
+                { 
                 Shoot();
-             }
+                }
+            }
 
         }
 

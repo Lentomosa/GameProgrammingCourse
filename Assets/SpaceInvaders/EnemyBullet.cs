@@ -4,26 +4,31 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
+    
     public float speed = 10f;
+    public bool canMove = true;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.down * speed * Time.deltaTime);
-
-        if (transform.position.y > 10f)
+        if (canMove)
         {
-            gameObject.SetActive(false);
-        }
+            transform.Translate(Vector3.down * speed * Time.deltaTime);
 
-        if (transform.position.y < -10f)
-        {
-            gameObject.SetActive(false);
+            if (transform.position.y > 10f)
+            {
+                gameObject.SetActive(false);
+            }
+
+            if (transform.position.y < -10f)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 
