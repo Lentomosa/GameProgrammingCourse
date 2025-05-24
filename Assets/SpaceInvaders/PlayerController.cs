@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public BulletPool bulletPool;
     public Transform cannon;
     public GameObject gameManager;
+    public bool collidedRight = false;
+    public bool collidedLeft = false;
 
     //public float enemyBulletTime = 1f;
     //float enemyBulletThreshold = 0f;
@@ -31,6 +33,27 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float hor = Input.GetAxis("Horizontal");
+
+        if (hor > 0 && collidedRight)
+        {
+            canMove = false;
+        }
+
+        if (hor < 0 && collidedRight)
+        {
+            canMove = true;
+        }
+
+        if (hor < 0 && collidedLeft)
+        {
+            canMove = false;
+        }
+
+        if (hor > 0 && collidedLeft)
+        {
+            canMove = true;
+        }
+
 
         if (canMove)
         {
@@ -83,6 +106,39 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyBullet"))
         {
             DecreaseLives();
+        }
+
+
+        if (other.gameObject.name == "BumperRight" && !collidedRight)
+        {
+            collidedRight = true;
+            collidedLeft = false;
+        }
+
+        if (other.gameObject.name == "BumperLeft" && !collidedLeft)
+        {
+            collidedRight = false;
+            collidedLeft = true;
+        }
+
+
+    }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+
+
+        if (other.gameObject.name == "BumperRight")
+        {
+            collidedRight = false;
+            collidedLeft = false;
+        }
+
+        if (other.gameObject.name == "BumperLeft")
+        {
+            collidedRight = false;
+            collidedLeft = false;
         }
 
 
