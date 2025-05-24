@@ -38,6 +38,7 @@ public class EnemyBullet : MonoBehaviour
         {
             other.gameObject.GetComponent<PlayerController>().DecreaseLives();
             gameObject.SetActive(false);
+            gameObject.GetComponent<EnemyBullet>().canMove = true;
         }
 
     }
