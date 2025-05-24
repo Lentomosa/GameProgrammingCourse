@@ -37,7 +37,7 @@ public class InvaderScript : MonoBehaviour
 
     public GameObject gameManager;
 
-    public InvaderBulletPool invaderBulletPool;
+   
 
     public EnemyBulletPool bulletPool;
 
@@ -189,10 +189,6 @@ public class InvaderScript : MonoBehaviour
         }
     }
 
-    public void SendShieldCandidates()
-    {
-        gameManager.GetComponent<InvaderGameManager>().ActivateShields();
-    }
 
     public void ShieldTest()
     {

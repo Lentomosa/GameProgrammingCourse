@@ -21,7 +21,7 @@ public class InvaderGameManager : MonoBehaviour
 
     public float ufoTime = 1;
     public bool ufoActive = false;
-    public GameObject ufo;
+
 
     public bool gameOver = false;
     public bool pauseMenuOpen = false;
@@ -36,6 +36,7 @@ public class InvaderGameManager : MonoBehaviour
 
     public GameObject player;
     public GameObject invaderSpawner;
+    public GameObject ufo;
     public GameObject scoreUI;
     public GameObject livesUI;
     public GameObject hiScoreUI;
@@ -50,23 +51,20 @@ public class InvaderGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        score = PlayerPrefs.GetInt("Score");
+        // Get Score and Hiscore
+        score = 0;
         hiScore = PlayerPrefs.GetInt("HiScore");
 
-        //invaderChangeTime = defaulInvaderChangeTime;
-        //PlayerPrefs.SetFloat("InvaderChangeTime", invaderChangeTime);
-
-
-        Debug.Log(PlayerPrefs.GetInt("Score", score));
+        // Set first random bullet and shield thresholds
         enemyBulletThreshold = Random.Range(bulletMinTime, bulletMaxTime);
         enemyShieldThreshold = Random.Range(shieldMinTime, shieldMaxTime);
 
-        //ufo = GameObject.Find("Ufo");
-
+        // Set up UI
         scoreUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString();
         livesUI.GetComponent<TextMeshProUGUI>().text = "Lives: " + lives.ToString();
         hiScoreUI.GetComponent<TextMeshProUGUI>().text = "Hiscore: " + hiScore.ToString();
+
+        // Set menu elements inactive
         retryButton.SetActive(false);
         gameOverText.SetActive(false);
         menuButton.SetActive(false);
@@ -76,65 +74,72 @@ public class InvaderGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // Stop bullet and shield timers when the game is paused
         if (!gamePaused)
         { 
         enemyBulletTime += Time.deltaTime;
         enemyShieldTime += Time.deltaTime;
         }
 
+        // Check if bullet threshold has been reached
         if (enemyBulletTime >= enemyBulletThreshold)
         {
 
-
+            // Find all invaders tagged Enemy
             GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
 
             if (invaders.Length > 1)
             {
 
-
+            // Pick a random invader to fire its weapon
             GameObject invader = invaders[Random.Range(0, invaders.Length)];
             invader.GetComponent<InvaderScript>().Shoot();
 
 
-            // Reset the timer.
+            // Reset the timer
             enemyBulletTime = 0f;
 
-            // Generate a new random threshold for the next shot.
+            // Generate a new random threshold for the next shot
             enemyBulletThreshold = Random.Range(bulletMinTime, bulletMaxTime);
             }
         }
 
-        
 
-         if (enemyShieldTime >= enemyShieldThreshold)
+        // Check if shield threshold has been reached
+        if (enemyShieldTime >= enemyShieldThreshold)
          {
 
 
              GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
 
              if (invaders.Length > 1)
-            {
-                 //GameObject invader = invaders[Random.Range(0, invaders.Length)];
-                 //invader.GetComponent<InvaderScript>().canUseShield = true;
-
-
-                 for (int i = 0; i < invaders.Length; i++)
              {
+
+
+                // Order all found invaders to check if they have room to activate the shield
+                 for (int i = 0; i < invaders.Length; i++)
+                 {
+
                  print("ShieldTest!");
                  invaders[i].GetComponent<InvaderScript>().ShieldTest();
                 
-             }
+                 }
                
-             // Reset the timer.
+             // Reset the timer
              enemyShieldTime = 0f;
 
+             // Generate a new random threshold for the next shield
              enemyShieldThreshold = Random.Range(shieldMinTime, shieldMaxTime);
 
-             ActivateShields();
+             // Do a new search for invaders after ShieldTest
+             AddToShieldList();
              }
 
          }
 
+
+        // Open and close pause menu with ESC
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!pauseMenuOpen)
@@ -152,12 +157,13 @@ public class InvaderGameManager : MonoBehaviour
         }
 
 
-
+        // Update Ufo timer if Ufo is not active
             if (!ufoActive)
         {
             ufoTime += Time.deltaTime;
         }
-
+        
+        // Activate Ufo if time has been reached and Ufo is not already active
         if (ufoTime >= 5 && !ufoActive)
         {
             ufo.GetComponent<UfoScript>().ActivateUfo();
@@ -166,17 +172,16 @@ public class InvaderGameManager : MonoBehaviour
     }
 
 
-    public void ActivateShields()
+    // Search for Enemies to be checked for Tag "Enemy" and boolean "hasObstacle"
+    public void AddToShieldList()
     {
         GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
-        //GameObject invader = invaders[Random.Range(0, invaders.Length)];
-        //invader.GetComponent<InvaderScript>().canUseShield = true;
-
-
+ 
 
        if (invaders.Length > 1)
 
         {
+            // Add each invader with false hasObstacle boolean to shieldInvaders list
             foreach (GameObject obj in invaders)
             {
                 InvaderScript script = obj.GetComponent<InvaderScript>(); 
@@ -184,66 +189,47 @@ public class InvaderGameManager : MonoBehaviour
                 if (script != null && !script.hasObstacle)
                 {
                     shieldInvaders.Add(obj);
-                    //obj.GetComponent<InvaderScript>().canUseShield = true;
-                    
+               
                 }
             }
             
        }
 
+        
         if (shieldInvaders != null)
         {
             int shieldListLenght = shieldInvaders.Count;
 
-            //if (shieldListLenght > 2)
-            //{ 
+            // Pick a random invader to activate its shield
             GameObject shieldInvader = shieldInvaders[Random.Range(0, shieldListLenght)];
             shieldInvader.GetComponent<InvaderScript>().canUseShield = true;
             shieldInvaders.Clear();
-            //}
+            
         }
     }
 
-    public void ChooseInvader()
-    {
 
+    // Add Score from the kill
+    public void AddScore(int scoreAmount)
 
-    }
-
-        public void AddScore(int scoreAmount)
     {
         score += scoreAmount;
-        //hiScore += scoreAmount;
-        //sessionScore += scoreAmount;
         scoreUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString();
         Debug.Log(score);
         PlayerPrefs.SetInt("Score", score);
 
     }
 
-    public void LoseLife()
+    // Player loses a live
+    public void LoseLive()
     {
         lives -= 1;
         livesUI.GetComponent<TextMeshProUGUI>().text = "Lives: " + lives.ToString();
         gamePaused = true;
         DisableEnemies();
         DisablePlayer();
-        /*
-        GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject[] ufos = GameObject.FindGameObjectsWithTag("Ufo");
-        for (int i = 0; i < invaders.Length; i++)
-        {
-            invaders[i].GetComponent<InvaderScript>().canMove = false;
-            invaders[i].GetComponent<InvaderScript>().canShoot = false;
-            
-        }
 
-        for (int i = 0; i < ufos.Length; i++)
-        {
-            ufos[i].GetComponent<UfoScript>().canMove = false;
-        }
-        */
-
+        // Check if player has no more lives
         if (lives <= 0)
         {
 
@@ -253,17 +239,9 @@ public class InvaderGameManager : MonoBehaviour
 
             }
            
-
-
-            score = 0;
-            PlayerPrefs.SetInt("Score", score);
-            PlayerPrefs.SetInt("HiScore", hiScore);
-            scoreUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString();
-            hiScoreUI.GetComponent<TextMeshProUGUI>().text = "HiScore: " + hiScore.ToString();
-            //PlayerPrefs.Save();
+            // Call for GameOver
             GameOver();
 
-            //SceneManager.LoadScene("MenuLevel");
         }
 
     }
@@ -289,6 +267,18 @@ public class InvaderGameManager : MonoBehaviour
         EnableEnemies();
     }
 
+    public void PauseMenu()
+    {
+
+        DisableEnemies();
+        DisablePlayer();
+        continueButton.SetActive(true);
+        retryButton.SetActive(true);
+        menuButton.SetActive(true);
+        gamePaused = true;
+
+    }
+
     public void ClosePauseMenu()
     {
         gameOverText.SetActive(false);
@@ -299,6 +289,13 @@ public class InvaderGameManager : MonoBehaviour
 
     public void GameOver()
     {
+
+        score = 0;
+        PlayerPrefs.SetInt("Score", score);
+        PlayerPrefs.SetInt("HiScore", hiScore);
+        scoreUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString();
+        hiScoreUI.GetComponent<TextMeshProUGUI>().text = "HiScore: " + hiScore.ToString();
+
         gameOverText.SetActive(true);
         retryButton.SetActive(true);
         menuButton.SetActive(true);
@@ -390,18 +387,6 @@ public class InvaderGameManager : MonoBehaviour
             invaderBullets[i].GetComponent<EnemyBullet>().canMove = true;
 
         }
-
-    }
-
-    public void PauseMenu()
-    {
-
-        DisableEnemies();
-        DisablePlayer();
-        continueButton.SetActive(true);
-        retryButton.SetActive(true);
-        menuButton.SetActive(true);
-        gamePaused = true;
 
     }
 

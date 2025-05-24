@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour
             canMove = false;
             canDamage = false;
             lives--;
-            gameManager.GetComponent<InvaderGameManager>().LoseLife();
+            gameManager.GetComponent<InvaderGameManager>().LoseLive();
             
 
             /*

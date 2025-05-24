@@ -11,6 +11,7 @@ public class BulletPool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Create bullet pool
         bullets = new List<GameObject>();
         GameObject tmp;
         for(int i=0; i < bulletAmount; i++)
@@ -23,6 +24,7 @@ public class BulletPool : MonoBehaviour
         
     }
 
+    //Get inactive bullets from pool
     public GameObject GetPooledBullet()
     {
         for(int i=0; i< bulletAmount; i++)

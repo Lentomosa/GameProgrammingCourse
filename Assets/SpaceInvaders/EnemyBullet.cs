@@ -16,6 +16,7 @@ public class EnemyBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check if the bullet is allowed to move
         if (canMove)
         {
             transform.Translate(Vector3.down * speed * Time.deltaTime);
@@ -34,8 +35,10 @@ public class EnemyBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Check if the bullet collides with the player
         if(other.gameObject.name == "Player")
         {
+            //Decrease player lives and set the bullet inactive
             other.gameObject.GetComponent<PlayerController>().DecreaseLives();
             gameObject.SetActive(false);
             gameObject.GetComponent<EnemyBullet>().canMove = true;
