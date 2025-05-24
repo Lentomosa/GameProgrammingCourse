@@ -1472,12 +1472,22 @@ PrefabInstance:
     - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
         type: 3}
       propertyPath: bulletMaxTime
-      value: 0.1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
         type: 3}
       propertyPath: bulletMinTime
-      value: 0.1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
+        type: 3}
+      propertyPath: shieldMaxTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
+        type: 3}
+      propertyPath: shieldMinTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
         type: 3}
@@ -1498,6 +1508,11 @@ PrefabInstance:
         type: 3}
       propertyPath: enemyShieldTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
+        type: 3}
+      propertyPath: invaderChangeTime
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
         type: 3}

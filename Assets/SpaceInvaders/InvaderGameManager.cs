@@ -12,7 +12,10 @@ public class InvaderGameManager : MonoBehaviour
     public float enemyBulletTime = 1f;
     public float bulletMaxTime = 2f;
     public float bulletMinTime = 1f;
-    float enemyBulletThreshold = 0f;
+    public float enemyBulletThreshold = 0f;
+
+    public float shieldMaxTime = 2f;
+    public float shieldMinTime = 1f;
     public float enemyShieldTime = 0f;
     public float enemyShieldThreshold = 2f;
 
@@ -29,6 +32,7 @@ public class InvaderGameManager : MonoBehaviour
     public int hiScore;
     public int lives = 3;
     public float invaderChangeTime = 1;
+    //public float defaulInvaderChangeTime = 3;
 
     public GameObject player;
     public GameObject invaderSpawner;
@@ -50,10 +54,13 @@ public class InvaderGameManager : MonoBehaviour
         score = PlayerPrefs.GetInt("Score");
         hiScore = PlayerPrefs.GetInt("HiScore");
 
-        invaderChangeTime = PlayerPrefs.GetFloat("InvaderChangeTime");
+        //invaderChangeTime = defaulInvaderChangeTime;
+        //PlayerPrefs.SetFloat("InvaderChangeTime", invaderChangeTime);
+
 
         Debug.Log(PlayerPrefs.GetInt("Score", score));
         enemyBulletThreshold = Random.Range(bulletMinTime, bulletMaxTime);
+        enemyShieldThreshold = Random.Range(shieldMinTime, shieldMaxTime);
 
         //ufo = GameObject.Find("Ufo");
 
@@ -117,9 +124,12 @@ public class InvaderGameManager : MonoBehaviour
                  invaders[i].GetComponent<InvaderScript>().ShieldTest();
                 
              }
-
+               
              // Reset the timer.
              enemyShieldTime = 0f;
+
+             enemyShieldThreshold = Random.Range(shieldMinTime, shieldMaxTime);
+
              ActivateShields();
              }
 
@@ -298,8 +308,7 @@ public class InvaderGameManager : MonoBehaviour
         DisablePlayer();
         ResetScore();
 
-        invaderChangeTime = 1f;
-        PlayerPrefs.SetFloat("InvaderChangeTime", invaderChangeTime);
+
         PlayerPrefs.Save();
     }
 
@@ -419,11 +428,11 @@ public class InvaderGameManager : MonoBehaviour
     public void IncreaseDifficulty()
 
     {
-        if(invaderChangeTime > 0.4f)
+        if(invaderChangeTime > 0.2f)
         { 
-        invaderChangeTime -= 0.2f;
+        invaderChangeTime -= 0.1f;
         }
-        PlayerPrefs.SetFloat("InvaderChangeTime", invaderChangeTime);
+        //PlayerPrefs.SetFloat("InvaderChangeTime", invaderChangeTime);
 
         GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < invaders.Length; i++)
@@ -432,7 +441,15 @@ public class InvaderGameManager : MonoBehaviour
             invaders[i].GetComponent<InvaderScript>().changeTime = invaderChangeTime;
             
         }
- 
+
+
+        if (shieldMaxTime > 0.4f && shieldMinTime > 0.4f && bulletMaxTime > 0.4f && bulletMinTime > 0.4f)
+        { 
+        shieldMaxTime -= 0.2f;
+        shieldMinTime -= 0.2f;
+        bulletMaxTime -= 0.2f;
+        bulletMinTime -= 0.2f;
+        }
 
     }
 
