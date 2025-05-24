@@ -32,7 +32,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         float hor = Input.GetAxis("Horizontal");
+
+
+        // Check if player is colliding with left or right bumpers and prevent movement towards the bumpers.
 
         if (hor > 0 && collidedRight)
         {
@@ -54,6 +58,7 @@ public class PlayerController : MonoBehaviour
             canMove = true;
         }
 
+        // If the player is allowed to move.
 
         if (canMove)
         {
@@ -89,6 +94,7 @@ public class PlayerController : MonoBehaviour
         */
     }
 
+    // Player shoots a bullet from the pool.
     public void Shoot()
     {
         print("Shoot");
@@ -101,14 +107,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    // Check if colliding with something.
+
     private void OnTriggerEnter(Collider other)
     {
+        // Check if the other object is an enemy or an enemy bullet.
         if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyBullet"))
         {
             DecreaseLives();
         }
 
-
+        // Check if the other objet is a bumper.
         if (other.gameObject.name == "BumperRight" && !collidedRight)
         {
             collidedRight = true;
