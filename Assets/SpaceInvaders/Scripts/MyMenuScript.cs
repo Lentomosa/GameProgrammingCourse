@@ -23,27 +23,31 @@ public class MyMenuScript : MonoBehaviour
         
     }
 
+    // Go to level
     public void GoToLevel(string levelName)
     {
         SceneManager.LoadScene(levelName);
     }
 
+    // Quit game
     public void ExitGame()
     {
         Application.Quit();
     }
 
+    // Continue the game
     public void Continue()
     {
         gameManager.GetComponent<InvaderGameManager>().Continue();
     }
 
+    // Reset Hiscore
     public void ResetHiscore()
     {
         PlayerPrefs.SetInt("HiScore", 0);
         PlayerPrefs.Save();
     }
-
+    // Reset Score
     public void ResetScore()
     {
         PlayerPrefs.SetInt("Score", 0);
