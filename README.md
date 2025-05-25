@@ -11,3 +11,5 @@ Vasen hiiri = Ammu
 A = Vasemmalle
 D = Oikealle
 Esc = Avaa taukovalikko
+
+Buildi, gameplay-video, raportti ja tuntikirjanpito ovat tämän Readme-tiedoston kanssa samassa sijainnissa.
