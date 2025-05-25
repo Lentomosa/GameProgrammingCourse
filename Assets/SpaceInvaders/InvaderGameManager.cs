@@ -69,6 +69,8 @@ public class InvaderGameManager : MonoBehaviour
         gameOverText.SetActive(false);
         menuButton.SetActive(false);
         continueButton.SetActive(false);
+
+
     }
 
     // Update is called once per frame
@@ -246,20 +248,23 @@ public class InvaderGameManager : MonoBehaviour
 
     }
 
+    // Reset Hiscore
     public void ResetHiscore()
     {
         PlayerPrefs.SetInt("HiScore", 0);
         PlayerPrefs.Save();
     }
 
+    // Reset Score
     public void ResetScore()
     {
         PlayerPrefs.SetInt("Score", 0);
     }
 
+
+    // Unpause the game
     public void Continue()
     {
-
 
         ClosePauseMenu();
         EnablePlayer();
@@ -267,6 +272,7 @@ public class InvaderGameManager : MonoBehaviour
         EnableEnemies();
     }
 
+    // Open Pause menu
     public void PauseMenu()
     {
 
@@ -279,6 +285,7 @@ public class InvaderGameManager : MonoBehaviour
 
     }
 
+    // Close Pause menu
     public void ClosePauseMenu()
     {
         pauseMenuOpen = false;
@@ -288,6 +295,7 @@ public class InvaderGameManager : MonoBehaviour
         continueButton.SetActive(false);
     }
 
+    // Game over
     public void GameOver()
     {
 
@@ -310,6 +318,7 @@ public class InvaderGameManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    // Disable player and player bullets
     public void DisablePlayer()
     {
         player.GetComponent<PlayerController>().canMove = false;
@@ -325,6 +334,7 @@ public class InvaderGameManager : MonoBehaviour
 
     }
 
+    // Enable player and player bullets
     public void EnablePlayer()
     {
         player.GetComponent<PlayerController>().canMove = true;
@@ -340,6 +350,7 @@ public class InvaderGameManager : MonoBehaviour
 
     }
 
+    // Disable enemies and enemy bullets
     public void DisableEnemies()
     {
         GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
@@ -364,6 +375,7 @@ public class InvaderGameManager : MonoBehaviour
         }
     }
 
+    // Enable enemies and enemy bullets
     public void EnableEnemies()
     {
         GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
@@ -391,18 +403,22 @@ public class InvaderGameManager : MonoBehaviour
 
     }
 
+    // Called from UfoScript when the ufo is set inactive
     public void UfoKilled()
     {
         ufoActive = false;
         ufoTime = 0;
     }
 
+    // Check if there are any invaders left after an invader is killed
     public void InvaderKilled()
     {
 
         print("INVADERKILLED CALLED");
         invaders = GameObject.FindGameObjectsWithTag("Enemy");
         print(invaders);
+
+        // Spawn a new wave of invaders if no invaders are found
         if (invaders.Length <= 1)
         {
             invaderSpawner.GetComponent<AlienSpawner>().InvaderSpawn();
@@ -411,6 +427,8 @@ public class InvaderGameManager : MonoBehaviour
         }
     }
 
+
+    // Increase difficulty of the game
     public void IncreaseDifficulty()
 
     {
@@ -418,8 +436,8 @@ public class InvaderGameManager : MonoBehaviour
         { 
         invaderChangeTime -= 0.1f;
         }
-        //PlayerPrefs.SetFloat("InvaderChangeTime", invaderChangeTime);
 
+        // Reduce invader movement interval
         GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < invaders.Length; i++)
         {
@@ -428,7 +446,7 @@ public class InvaderGameManager : MonoBehaviour
             
         }
 
-
+        // Reduce shield and bullet times
         if (shieldMaxTime > 0.4f && shieldMinTime > 0.4f && bulletMaxTime > 0.4f && bulletMinTime > 0.4f)
         { 
         shieldMaxTime -= 0.2f;

@@ -19,8 +19,6 @@ public class UfoScript : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager");
         gameObject.SetActive(false);
-        //ufoLeftSpawn.transform = ufoRight;
-
         ufoLeft = ufoLeftSpawn.transform;
         ufoRight = ufoRightSpawn.transform;
 
@@ -29,15 +27,15 @@ public class UfoScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // Check if the ufo can move
         if (canMove)
         {
-
 
             transform.Translate(Vector2.right * speed * direction * Time.deltaTime);
 
         }
 
+        // Set the ufo inactive if out of the playable area
         if (transform.position.x > 16f)
         {
             gameObject.SetActive(false);
@@ -51,10 +49,10 @@ public class UfoScript : MonoBehaviour
         }
     }
 
+    // Check if the ufo is hit by the player bullet
     private void OnTriggerEnter(Collider other)
     {
-        GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
-
+        
 
         if (other.gameObject.CompareTag("PlayerBullet"))
         {
@@ -67,9 +65,9 @@ public class UfoScript : MonoBehaviour
     public void Damage(int dmgAmount)
     {
         HP -= dmgAmount;
+        // If HP is zero or lower
         if (HP <= 0)
         {
-            //Destroy(gameObject);
             gameObject.SetActive(false);
            
             gameManager.GetComponent<InvaderGameManager>().AddScore(1000);
@@ -77,6 +75,8 @@ public class UfoScript : MonoBehaviour
         }
     }
 
+
+    // Activate the ufo
     public void ActivateUfo()
 
     {
@@ -84,6 +84,7 @@ public class UfoScript : MonoBehaviour
         gameManager.GetComponent<InvaderGameManager>().ufoActive = true;
 
 
+        // Pick Left or Right to approach from
         if (Random.value < 0.5f)
         {
             MoveFromRight();
@@ -96,6 +97,7 @@ public class UfoScript : MonoBehaviour
 
     }
 
+    // Move from left
     public void MoveFromLeft()
 
     {
@@ -105,6 +107,7 @@ public class UfoScript : MonoBehaviour
         canMove = true;
     }
 
+    // Move from right
     public void MoveFromRight()
 
     {

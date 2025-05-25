@@ -16,6 +16,7 @@ public class InvaderShield : MonoBehaviour
 
     }
 
+    // Reflect the player bullet
     private void OnTriggerEnter(Collider other)
     {
 

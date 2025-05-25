@@ -21,7 +21,7 @@ public class InvaderScript : MonoBehaviour
 
     public float offSetY = -1f;
 
-    public Transform player;
+    public Transform playerPos;
 
     public Transform gun;
     public bool canReflect = false;
@@ -51,26 +51,27 @@ public class InvaderScript : MonoBehaviour
         speedLeft = -speed;
         speedRight = speed;
         gameManager = GameObject.Find("GameManager");
-        player = GameObject.Find("Player").transform;
+        playerPos = GameObject.Find("Player").transform;
         gun = transform.GetChild(0);
         Transform shield = transform.GetChild(0);
         shieldInstance = Instantiate(shieldPrefab, shield.position, shield.rotation, shield);
         shieldInstance.SetActive(false);
-        //invaderBulletPool = GetComponent<InvaderBulletPool>();
         bulletPool = GameObject.Find("Spawner").GetComponent<EnemyBulletPool>();
+        changeTime = gameManager.GetComponent<InvaderGameManager>().invaderChangeTime;
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-
-
+        // Check if allowed to move
         if (canMove)
         {
             timer += Time.deltaTime;
             shieldTimer += Time.deltaTime;
 
+            // Move if changeTime is reached
             if (timer > changeTime)
             {
                 Move();
@@ -78,7 +79,7 @@ public class InvaderScript : MonoBehaviour
                 timer = 0f;
             }
 
-            
+            // Flip shield on or off
             if (canUseShield)
             { 
 
@@ -98,10 +99,11 @@ public class InvaderScript : MonoBehaviour
                 }
             }
             
-
-            if (transform.position.y <= player.transform.position.y)
+            // Make the player lose if an invader reaches the player y position
+            if (transform.position.y <= playerPos.transform.position.y)
             {
-                print("game over");
+                print("Invader Reached the Player");
+                gameManager.GetComponent<InvaderGameManager>().GameOver();
             }
         }
     }
@@ -138,6 +140,7 @@ public class InvaderScript : MonoBehaviour
         }
     }
 
+    // Move the invader
     public void Move()
     {
         transform.position = new Vector2(transform.position.x + offSetX, transform.position.y);
@@ -145,10 +148,11 @@ public class InvaderScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
 
+        // Check if collided with the BumperRight
         if (other.gameObject.name == "BumperRight" && !collidedRight)
         {
+            GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
             for (int i = 0; i < invaders.Length; i++)
             {
                 invaders[i].GetComponent<InvaderScript>().offSetX = speedLeft;
@@ -158,8 +162,10 @@ public class InvaderScript : MonoBehaviour
             }
         }
 
+        // Check if collided with the BumperLeft
         if (other.gameObject.name == "BumperLeft" && !collidedLeft)
         {
+            GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
             for (int i = 0; i < invaders.Length; i++)
             {
                 invaders[i].GetComponent<InvaderScript>().offSetX = speedRight;
@@ -169,6 +175,7 @@ public class InvaderScript : MonoBehaviour
             }
         }
 
+        // Check if hit by player bullet
         if (other.gameObject.CompareTag("PlayerBullet") && !canReflect)
         {
             Damage(1);
@@ -177,9 +184,11 @@ public class InvaderScript : MonoBehaviour
         }
     }
 
+    //Damage by a set amount of damage
     public void Damage(int dmgAmount)
     {
         HP -= dmgAmount;
+        // If HP is zero or lower
         if (HP <= 0)
         {
             Destroy(gameObject);
@@ -189,17 +198,17 @@ public class InvaderScript : MonoBehaviour
         }
     }
 
-
+    // Do a raycast check for shield
     public void ShieldTest()
     {
-        //Draw a debug ray.
+        //Draw a debug ray
         Debug.DrawRay(transform.position, Vector3.down * rayDistance, Color.red);
 
-        // Raycast ALL.
+        // Raycast ALL
 
         RaycastHit[] hits = Physics.RaycastAll(transform.position, Vector3.down, rayDistance);
 
-        // If any collider is hit.
+        // If any collider is hit
 
         if (hits.Length > 0)
         {
@@ -207,72 +216,28 @@ public class InvaderScript : MonoBehaviour
 
             foreach (RaycastHit hit in hits)
             {
-                // Check if a game object with a similar tag is hit by the ray.
+                // Check if a game object with a similar tag is hit by the ray
                 if (hit.collider.CompareTag(gameObject.tag))
                 {
                     Debug.Log($"{gameObject.name} found an object with the same tag below: {hit.collider.gameObject.name}");
-                    //canUseShield = false;
-                    //gameObject.tag = "Enemy";
                     hasObstacle = true;
                 }
-                // No game objects with a similar tag found.
+                // No game objects with a similar tag found
                 else
                 {
                     Debug.Log($"{gameObject.name} found an object with a different tag below: {hit.collider.gameObject.name}");
-                    //canUseShield = true;
-                    //gameObject.tag = "EnemyFront";
                     hasObstacle = false;
                 }
             }
 
-            // Deactivate the shield if any object is hit.
-            //canUseShield = false;
-            //gameObject.tag = "Enemy";
-            //hasObstacle = false;
 
         }
 
+        // If any collider is not hit
         else
         {
-            // Activate the shield if no objects are detected.
-            // canUseShield = true;
-            //gameObject.tag = "EnemyFront";
-            //SendShieldCandidates();
             hasObstacle = false;
         }
     
-
-
-
-
-    /*
-            // Optional: Draw the ray in the Scene view for debugging.
-Debug.DrawRay(transform.position, Vector3.down* rayDistance, Color.red);
-
-    // Perform the raycast downward from the game object's position
-    if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayDistance))
-    {
-        // Check if the hit object's tag matches the current object's tag
-        if (!hit.collider.CompareTag(gameObject.tag))
-        {
-            Debug.Log($"{gameObject.name} found an object with the same tag below: {hit.collider.gameObject.name}");
-            // Here you can add any further logic, e.g., trigger an event, change state, etc.
-
-
-            shieldInstance.SetActive(false);
-
-        }
-        else
-        {
-
-            shieldInstance.SetActive(false);
-
-        }
-    }
-    else
-    {
-        shieldInstance.SetActive(true);
-    }
-    */
     }
 }

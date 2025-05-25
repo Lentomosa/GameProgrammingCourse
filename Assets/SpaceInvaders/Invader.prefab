@@ -163,7 +163,7 @@ MonoBehaviour:
   canMove: 1
   canShoot: 1
   timer: 0
-  changeTime: 3
+  changeTime: 0.1
   speed: 1
   offSetX: 1
   speedLeft: -1
@@ -171,6 +171,7 @@ MonoBehaviour:
   collidedLeft: 0
   collidedRight: 0
   offSetY: -1
+  playerPos: {fileID: 0}
   player: {fileID: 0}
   gun: {fileID: 0}
   canReflect: 0
@@ -183,6 +184,5 @@ MonoBehaviour:
   hasObstacle: 0
   gameManager: {fileID: 7104639987438362468, guid: d0b6723366dd11943bbf87ffc98cfc37,
     type: 3}
-  invaderBulletPool: {fileID: 0}
   bulletPool: {fileID: 0}
   rayDistance: 5

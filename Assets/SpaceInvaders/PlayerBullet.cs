@@ -19,33 +19,38 @@ public class PlayerBullet : MonoBehaviour
     {
         if (canMove)
         {
+            // Move bullet up
             if (!bulletReflected)
             {
                 transform.Translate(Vector2.up * bulletSpeed * Time.deltaTime);
             }
 
+            // Move bullet down
             if (bulletReflected)
             {
                 transform.Translate(Vector2.down * bulletSpeed * Time.deltaTime);
             }
 
-            if (transform.position.y > 10f)
+            // Set inactive if out of playable area
+            if (transform.position.y > 12f)
             {
                 gameObject.SetActive(false);
             }
 
-            if (transform.position.y < -10f)
+            if (transform.position.y < -6f)
             {
                 gameObject.SetActive(false);
             }
         }
     }
 
+    // Called in InvaderShield when colliding with a player bullet
     public void ReflectBullet()
     {
         bulletReflected = true;
     }
 
+    // Damage the player if the bullet was reflected towards the player
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Player" && bulletReflected)

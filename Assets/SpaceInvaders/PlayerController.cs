@@ -15,8 +15,7 @@ public class PlayerController : MonoBehaviour
     public bool collidedRight = false;
     public bool collidedLeft = false;
 
-    //public float enemyBulletTime = 1f;
-    //float enemyBulletThreshold = 0f;
+
 
 
 
@@ -25,8 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         bulletPool = GetComponent<BulletPool>();
         lives = gameManager.GetComponent<InvaderGameManager>().lives;
-        // Set the initial random threshold once.
-        //enemyBulletThreshold = Random.Range(3f, 8f);
+
     }
 
     // Update is called once per frame
@@ -36,7 +34,7 @@ public class PlayerController : MonoBehaviour
         float hor = Input.GetAxis("Horizontal");
 
 
-        // Check if player is colliding with left or right bumpers and prevent movement towards the bumpers.
+        // Check if player is colliding with left or right bumpers and prevent movement towards the bumpers
 
         if (hor > 0 && collidedRight)
         {
@@ -58,7 +56,7 @@ public class PlayerController : MonoBehaviour
             canMove = true;
         }
 
-        // If the player is allowed to move.
+        // If the player is allowed to move
 
         if (canMove)
         {
@@ -75,23 +73,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-       /* enemyBulletTime += Time.deltaTime;
-        
 
-
-        if (enemyBulletTime >= enemyBulletThreshold)
-        {
-            GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
-            GameObject invader = invaders[Random.Range(0, invaders.Length)];
-            invader.GetComponent<InvaderScript>().Shoot();
-
-            // Reset the timer.
-            enemyBulletTime = 0f;
-
-            // Generate a new random threshold for the next shot.
-            enemyBulletThreshold = Random.Range(0.5f, 3f);
-        }
-        */
     }
 
     // Player shoots a bullet from the pool.
@@ -134,7 +116,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
+    // Check if player collides with the bumpers
     private void OnTriggerExit(Collider other)
     {
 
@@ -154,6 +136,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    // Reduce player lives
     public void DecreaseLives()
     {
         if (canDamage)
@@ -163,16 +146,7 @@ public class PlayerController : MonoBehaviour
             lives--;
             gameManager.GetComponent<InvaderGameManager>().LoseLive();
             
-
-            /*
-            GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
-            for (int i = 0; i < invaders.Length; i++)
-            {
-                invaders[i].GetComponent<InvaderScript>().canMove = false;
-            }
-
-            */
-
+            // Start continue coroutine
             if(lives > 0)
             {
                 StartCoroutine(Continue());
@@ -187,16 +161,9 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         transform.position = new Vector3(0f, -5f, 0f);
         canMove = true;
-        gameManager.GetComponent<InvaderGameManager>().Continue();
 
-        
-       /* GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
-        for (int i = 0; i < invaders.Length; i++)
-        {
-            invaders[i].GetComponent<InvaderScript>().canMove = true;
-            invaders[i].GetComponent<InvaderScript>().changeTime += 0.4f;
-        }
-        */
+        // Continue the game
+        gameManager.GetComponent<InvaderGameManager>().Continue();
 
         yield return new WaitForSeconds(1f);
         canDamage = true;
