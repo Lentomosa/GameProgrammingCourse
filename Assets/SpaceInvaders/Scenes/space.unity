@@ -1531,7 +1531,7 @@ PrefabInstance:
     - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
         type: 3}
       propertyPath: invaderChangeTime
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
         type: 3}
