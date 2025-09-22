@@ -8,10 +8,14 @@ public class PlayerBullet : MonoBehaviour
     public bool bulletReflected = false;
     public float bulletSpeed = 10f;
     public bool canMove = true;
+
+    public AudioSource audioSource;
+    public AudioClip Clip;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+       // audioSource.clip = sound
     }
 
     // Update is called once per frame

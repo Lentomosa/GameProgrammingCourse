@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public bool collidedRight = false;
     public bool collidedLeft = false;
 
-
+    
 
 
 
@@ -86,6 +86,9 @@ public class PlayerController : MonoBehaviour
             bullet.transform.position = cannon.position;
             bullet.SetActive(true);
             bullet.GetComponent<PlayerBullet>().bulletReflected = false;
+  
+            AudioSource audioData = bullet.GetComponent<AudioSource>();
+            audioData.Play();
         }
     }
 
