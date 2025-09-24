@@ -86,9 +86,10 @@ public class PlayerController : MonoBehaviour
             bullet.transform.position = cannon.position;
             bullet.SetActive(true);
             bullet.GetComponent<PlayerBullet>().bulletReflected = false;
-  
-            AudioSource audioData = bullet.GetComponent<AudioSource>();
-            audioData.Play();
+
+            //AudioSource audioData = bullet.GetComponent<AudioSource>();
+            //audioData.Play();
+            bullet.GetComponent<PlayerBullet>().PlayClip();
         }
     }
 

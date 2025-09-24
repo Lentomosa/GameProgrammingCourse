@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3551879535467645808}
   - component: {fileID: 2304159517690940904}
   m_Layer: 0
-  m_Name: PlayerBullet
+  m_Name: PlayerBullet2
   m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,9 +117,9 @@ MonoBehaviour:
   canMove: 1
   audioSource: {fileID: 2304159517690940904}
   audioClip:
-  - {fileID: 8300000, guid: 202896dccb52b5a44a8a75e52b025e83, type: 3}
-  - {fileID: 8300000, guid: 202896dccb52b5a44a8a75e52b025e83, type: 3}
-  - {fileID: 8300000, guid: 202896dccb52b5a44a8a75e52b025e83, type: 3}
+  - {fileID: 8300000, guid: da88813632750de4982615008317b6c9, type: 3}
+  - {fileID: 8300000, guid: da88813632750de4982615008317b6c9, type: 3}
+  - {fileID: 8300000, guid: da88813632750de4982615008317b6c9, type: 3}
 --- !u!54 &3551879535467645808
 Rigidbody:
   m_ObjectHideFlags: 0

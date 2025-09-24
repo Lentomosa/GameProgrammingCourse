@@ -10,12 +10,16 @@ public class PlayerBullet : MonoBehaviour
     public bool canMove = true;
 
     public AudioSource audioSource;
-    public AudioClip Clip;
+    // public AudioClip[] audioClip;
+    // private AudioClip activeSound;
+    public AudioClip[] clips;
+
+    
 
     // Start is called before the first frame update
     void Start()
     {
-       // audioSource.clip = sound
+        FiringSound();
     }
 
     // Update is called once per frame
@@ -53,6 +57,37 @@ public class PlayerBullet : MonoBehaviour
     {
         bulletReflected = true;
     }
+
+    public void FiringSound()
+
+    {
+        // Set Active Sound
+
+
+
+        // activeSound = audioClip[Random.Range(0, audioClip.Length)];
+
+        clips = Resources.LoadAll<AudioClip>("Sounds");
+
+        // Play sound
+        //audioSource.PlayOneShot(activeSound);
+        //audioSource.PlayOneShot(activeSound);
+
+
+
+    }
+
+    public void PlayClip()
+        // int index
+    {
+        //int index = 0;
+
+        int index = Random.Range(0, clips.Length);
+        if (index < 0 || index >= clips.Length) return;
+        AudioSource.PlayClipAtPoint(clips[index], Vector3.zero);
+
+    }
+
 
     // Damage the player if the bullet was reflected towards the player
     private void OnTriggerEnter(Collider other)
