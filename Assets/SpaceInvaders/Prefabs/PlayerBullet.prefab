@@ -116,10 +116,8 @@ MonoBehaviour:
   bulletSpeed: 10
   canMove: 1
   audioSource: {fileID: 2304159517690940904}
-  audioClip:
-  - {fileID: 8300000, guid: 202896dccb52b5a44a8a75e52b025e83, type: 3}
-  - {fileID: 8300000, guid: 202896dccb52b5a44a8a75e52b025e83, type: 3}
-  - {fileID: 8300000, guid: 202896dccb52b5a44a8a75e52b025e83, type: 3}
+  clips: []
+  weaponName: Laser
 --- !u!54 &3551879535467645808
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -14,12 +14,19 @@ public class PlayerBullet : MonoBehaviour
     // private AudioClip activeSound;
     public AudioClip[] clips;
 
-    
+    //public string weaponType;
+
+
+    [SerializeField] public string weaponName;  // e.g. "Laser", "Rocket"
+
 
     // Start is called before the first frame update
     void Start()
     {
+        //weaponType = Laser;
+        audioSource = GetComponent<AudioSource>();
         FiringSound();
+
     }
 
     // Update is called once per frame
@@ -67,24 +74,47 @@ public class PlayerBullet : MonoBehaviour
 
         // activeSound = audioClip[Random.Range(0, audioClip.Length)];
 
-        clips = Resources.LoadAll<AudioClip>("Sounds");
+        //clips = Resources.LoadAll<AudioClip>("Sounds/Weapons/Laser");
 
         // Play sound
         //audioSource.PlayOneShot(activeSound);
         //audioSource.PlayOneShot(activeSound);
 
+        
+        //LoadClipsFor(weaponName);
 
 
     }
 
-    public void PlayClip()
+    public void LoadClipsFor(string weapon)
+    {
+        // Capitalization and whitespace must match your folder names
+        string folderPath = $"Sounds/Weapons/{weapon}";
+        clips = Resources.LoadAll<AudioClip>(folderPath);
+
+        if (clips == null || clips.Length == 0)
+            Debug.LogWarning($"No audio found in Resources/{folderPath}");
+    }
+
+    public void PlayRandom()
+    {
+        if (clips == null || clips.Length == 0) return;
+        audioSource.PlayOneShot(clips[Random.Range(0, clips.Length)]);
+    }
+
+
+
+
+
+public void PlayClip()
         // int index
     {
         //int index = 0;
 
         int index = Random.Range(0, clips.Length);
         if (index < 0 || index >= clips.Length) return;
-        AudioSource.PlayClipAtPoint(clips[index], Vector3.zero);
+        //AudioSource.PlayClipAtPoint(clips[index], Vector3.zero);
+        audioSource.PlayOneShot(clips[index]);
 
     }
 
