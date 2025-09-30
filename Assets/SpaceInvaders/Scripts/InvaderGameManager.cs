@@ -44,6 +44,7 @@ public class InvaderGameManager : MonoBehaviour
     public GameObject menuButton;
     public GameObject continueButton;
     public GameObject gameOverText;
+    public GameObject upgrade;
 
     public List<GameObject> shieldInvaders;
     public GameObject[] invaders;
@@ -70,12 +71,15 @@ public class InvaderGameManager : MonoBehaviour
         menuButton.SetActive(false);
         continueButton.SetActive(false);
 
+        //Find Upgrade
+       // upgrade = GameObject.Find("WeaponUpgrade");
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        
 
         // Stop bullet and shield timers when the game is paused
         if (!gamePaused)
@@ -169,6 +173,7 @@ public class InvaderGameManager : MonoBehaviour
         if (ufoTime >= 5 && !ufoActive)
         {
             ufo.GetComponent<UfoScript>().ActivateUfo();
+            UpgradeSpawn();
             ufoTime = 0;
         }
     }
@@ -425,6 +430,17 @@ public class InvaderGameManager : MonoBehaviour
             print("ALL DEAD");
             IncreaseDifficulty();
         }
+    }
+
+    public void UpgradeSpawn()
+    {
+
+        print("UPGRADE CALLED");
+        
+       
+        upgrade.GetComponent<WeaponUpgrade>().ActivateUpgrade();
+        
+
     }
 
 

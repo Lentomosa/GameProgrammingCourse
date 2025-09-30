@@ -89,9 +89,9 @@ public class PlayerController : MonoBehaviour
 
             //AudioSource audioData = bullet.GetComponent<AudioSource>();
             //audioData.Play();
-            string weapon = "Plasma";
+            //string weapon = "Plasma";
 
-            bullet.GetComponent<PlayerBullet>().LoadClipsFor(weapon);
+            //bullet.GetComponent<PlayerBullet>().LoadClipsFor(weapon);
             bullet.GetComponent<PlayerBullet>().PlayClip();
         }
     }

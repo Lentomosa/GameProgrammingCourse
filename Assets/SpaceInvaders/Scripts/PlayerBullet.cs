@@ -80,8 +80,10 @@ public class PlayerBullet : MonoBehaviour
         //audioSource.PlayOneShot(activeSound);
         //audioSource.PlayOneShot(activeSound);
 
-        
+
         //LoadClipsFor(weaponName);
+        string weapon = "Laser";
+        LoadClipsFor(weapon);
 
 
     }
