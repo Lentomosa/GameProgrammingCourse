@@ -117,7 +117,7 @@ MonoBehaviour:
   canMove: 1
   audioSource: {fileID: 2304159517690940904}
   clips: []
-  weaponName: Laser
+  weaponName: 
 --- !u!54 &3551879535467645808
 Rigidbody:
   m_ObjectHideFlags: 0

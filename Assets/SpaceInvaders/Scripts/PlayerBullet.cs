@@ -17,7 +17,7 @@ public class PlayerBullet : MonoBehaviour
     //public string weaponType;
 
 
-    [SerializeField] public string weaponName;  // e.g. "Laser", "Rocket"
+    [SerializeField] public string weapon;  // e.g. "Laser", "Rocket"
 
 
     // Start is called before the first frame update
@@ -82,11 +82,13 @@ public class PlayerBullet : MonoBehaviour
 
 
         //LoadClipsFor(weaponName);
-        string weapon = "Laser";
+        // string 
+        weapon = "Laser";
         LoadClipsFor(weapon);
 
 
     }
+    
 
     public void LoadClipsFor(string weapon)
     {
