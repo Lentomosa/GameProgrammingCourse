@@ -180,7 +180,15 @@ public class InvaderScript : MonoBehaviour
         {
             Damage(1);
             print("hit by player");
-            other.gameObject.SetActive(false);
+            if (other.gameObject.GetComponent<PlayerBullet>().durability > 0)
+            {
+                other.gameObject.GetComponent<PlayerBullet>().durability -= 1;
+            }
+            else
+            {
+                other.gameObject.GetComponent<PlayerBullet>().RestoreDurability();
+                other.gameObject.SetActive(false);
+            }
         }
     }
 

@@ -117,7 +117,9 @@ MonoBehaviour:
   canMove: 1
   audioSource: {fileID: 2304159517690940904}
   clips: []
-  weaponName: 
+  durability: 0
+  maxDurability: 0
+  weapon: 
 --- !u!54 &3551879535467645808
 Rigidbody:
   m_ObjectHideFlags: 0

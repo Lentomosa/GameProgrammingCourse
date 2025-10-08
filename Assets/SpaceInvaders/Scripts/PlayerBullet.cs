@@ -14,6 +14,8 @@ public class PlayerBullet : MonoBehaviour
     // private AudioClip activeSound;
     public AudioClip[] clips;
 
+    public int durability = 0;
+    public int maxDurability = 0;
     //public string weaponType;
 
 
@@ -133,5 +135,11 @@ public void PlayClip()
             
         }
 
+    }
+
+    //
+    public void RestoreDurability()
+    {
+        durability = maxDurability;
     }
 }

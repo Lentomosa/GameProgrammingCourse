@@ -92,6 +92,9 @@ public class PlayerController : MonoBehaviour
             //string weapon = "Plasma";
 
             //bullet.GetComponent<PlayerBullet>().LoadClipsFor(weapon);
+            bullet.GetComponent<PlayerBullet>().maxDurability = gameManager.GetComponent<InvaderGameManager>().weaponTier;
+            bullet.GetComponent<PlayerBullet>().durability = gameManager.GetComponent<InvaderGameManager>().weaponTier;
+
             bullet.GetComponent<PlayerBullet>().PlayClip();
         }
     }
