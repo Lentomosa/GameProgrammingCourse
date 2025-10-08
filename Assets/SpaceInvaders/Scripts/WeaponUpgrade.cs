@@ -14,6 +14,8 @@ public class WeaponUpgrade : MonoBehaviour
     public float maxX = 10f;  // Maximum X position
     public float heightY = 13f;  // Height
     public Transform spawnPos;
+    public int weaponTier;
+    public List<string> weapons;
 
     //public GameObject[] bullets = GameObject.FindGameObjectsWithTag("PlayerBullet");
 
@@ -22,9 +24,8 @@ public class WeaponUpgrade : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager");
         gameObject.SetActive(false);
-        //ufoLeft = ufoLeftSpawn.transform;
-        //ufoRight = ufoRightSpawn.transform;
-        
+        weaponTier = gameManager.GetComponent<InvaderGameManager>().weaponTier;
+
     }
 
     // Update is called once per frame
@@ -62,21 +63,22 @@ public class WeaponUpgrade : MonoBehaviour
 
 
             List<GameObject> bullets = player.GetComponent<BulletPool>().bullets;
-
+            gameManager.GetComponent<InvaderGameManager>().IncreaseWeaponTier();
+            weaponTier = gameManager.GetComponent<InvaderGameManager>().weaponTier;
             //for (int i = 0; i < bullets.Length; i++)
 
-           foreach (GameObject obj in bullets)
+            foreach (GameObject obj in bullets)
                 
             {
-
-                string weapon = "Plasma";
-                print("ShieldTest!");
-                obj.GetComponent<PlayerBullet>().LoadClipsFor(weapon);
+ 
+                //string weapon = "Plasma";
+                //string weapon = "Plasma";
+                obj.GetComponent<PlayerBullet>().LoadClipsFor(weapons[weaponTier]);
                 obj.GetComponent<PlayerBullet>().PlayClip();
 
             }
 
-            print("Upgraded");
+           
 
 
 

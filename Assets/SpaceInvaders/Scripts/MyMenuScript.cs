@@ -12,6 +12,8 @@ public class MyMenuScript : MonoBehaviour
     {
         if (mainMenu)
         {
+
+            
             ResetScore();
             
         }
@@ -27,6 +29,7 @@ public class MyMenuScript : MonoBehaviour
     public void GoToLevel(string levelName)
     {
         SceneManager.LoadScene(levelName);
+        gameManager.GetComponent<InvaderGameManager>().StoreHighscore();
     }
 
     // Quit game

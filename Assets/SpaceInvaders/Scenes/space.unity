@@ -792,6 +792,21 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 284811825}
+    - target: {fileID: 6180825802323669743, guid: e274b752fb77c544296a70500088e81b,
+        type: 3}
+      propertyPath: weapons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6180825802323669743, guid: e274b752fb77c544296a70500088e81b,
+        type: 3}
+      propertyPath: weapons.Array.data[0]
+      value: Laser
+      objectReference: {fileID: 0}
+    - target: {fileID: 6180825802323669743, guid: e274b752fb77c544296a70500088e81b,
+        type: 3}
+      propertyPath: weapons.Array.data[1]
+      value: Plasma
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e274b752fb77c544296a70500088e81b, type: 3}
 --- !u!1 &724052862

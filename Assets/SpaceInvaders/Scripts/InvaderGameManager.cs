@@ -33,6 +33,7 @@ public class InvaderGameManager : MonoBehaviour
     public int lives = 3;
     public float invaderChangeTime = 1;
     //public float defaulInvaderChangeTime = 3;
+    public int weaponTier = 0;
 
     public GameObject player;
     public GameObject invaderSpawner;
@@ -72,20 +73,20 @@ public class InvaderGameManager : MonoBehaviour
         continueButton.SetActive(false);
 
         //Find Upgrade
-       // upgrade = GameObject.Find("WeaponUpgrade");
+        // upgrade = GameObject.Find("WeaponUpgrade");
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
 
         // Stop bullet and shield timers when the game is paused
         if (!gamePaused)
-        { 
-        enemyBulletTime += Time.deltaTime;
-        enemyShieldTime += Time.deltaTime;
+        {
+            enemyBulletTime += Time.deltaTime;
+            enemyShieldTime += Time.deltaTime;
         }
 
         // Check if bullet threshold has been reached
@@ -98,51 +99,51 @@ public class InvaderGameManager : MonoBehaviour
             if (invaders.Length > 1)
             {
 
-            // Pick a random invader to fire its weapon
-            GameObject invader = invaders[Random.Range(0, invaders.Length)];
-            invader.GetComponent<InvaderScript>().Shoot();
+                // Pick a random invader to fire its weapon
+                GameObject invader = invaders[Random.Range(0, invaders.Length)];
+                invader.GetComponent<InvaderScript>().Shoot();
 
 
-            // Reset the timer
-            enemyBulletTime = 0f;
+                // Reset the timer
+                enemyBulletTime = 0f;
 
-            // Generate a new random threshold for the next shot
-            enemyBulletThreshold = Random.Range(bulletMinTime, bulletMaxTime);
+                // Generate a new random threshold for the next shot
+                enemyBulletThreshold = Random.Range(bulletMinTime, bulletMaxTime);
             }
         }
 
 
         // Check if shield threshold has been reached
         if (enemyShieldTime >= enemyShieldThreshold)
-         {
+        {
 
 
-             GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
+            GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
 
-             if (invaders.Length > 1)
-             {
+            if (invaders.Length > 1)
+            {
 
 
                 // Order all found invaders to check if they have room to activate the shield
-                 for (int i = 0; i < invaders.Length; i++)
-                 {
+                for (int i = 0; i < invaders.Length; i++)
+                {
 
-                 print("ShieldTest!");
-                 invaders[i].GetComponent<InvaderScript>().ShieldTest();
-                
-                 }
-               
-             // Reset the timer
-             enemyShieldTime = 0f;
+                    print("ShieldTest!");
+                    invaders[i].GetComponent<InvaderScript>().ShieldTest();
 
-             // Generate a new random threshold for the next shield
-             enemyShieldThreshold = Random.Range(shieldMinTime, shieldMaxTime);
+                }
 
-             // Do a new search for invaders after ShieldTest
-             AddToShieldList();
-             }
+                // Reset the timer
+                enemyShieldTime = 0f;
 
-         }
+                // Generate a new random threshold for the next shield
+                enemyShieldThreshold = Random.Range(shieldMinTime, shieldMaxTime);
+
+                // Do a new search for invaders after ShieldTest
+                AddToShieldList();
+            }
+
+        }
 
 
         // Open and close pause menu with ESC
@@ -164,11 +165,11 @@ public class InvaderGameManager : MonoBehaviour
 
 
         // Update Ufo timer if Ufo is not active
-            if (!ufoActive)
+        if (!ufoActive)
         {
             ufoTime += Time.deltaTime;
         }
-        
+
         // Activate Ufo if time has been reached and Ufo is not already active
         if (ufoTime >= 5 && !ufoActive)
         {
@@ -183,26 +184,26 @@ public class InvaderGameManager : MonoBehaviour
     public void AddToShieldList()
     {
         GameObject[] invaders = GameObject.FindGameObjectsWithTag("Enemy");
- 
 
-       if (invaders.Length > 1)
+
+        if (invaders.Length > 1)
 
         {
             // Add each invader with false hasObstacle boolean to shieldInvaders list
             foreach (GameObject obj in invaders)
             {
-                InvaderScript script = obj.GetComponent<InvaderScript>(); 
+                InvaderScript script = obj.GetComponent<InvaderScript>();
 
                 if (script != null && !script.hasObstacle)
                 {
                     shieldInvaders.Add(obj);
-               
+
                 }
             }
-            
-       }
 
-        
+        }
+
+
         if (shieldInvaders != null)
         {
             int shieldListLenght = shieldInvaders.Count;
@@ -211,7 +212,7 @@ public class InvaderGameManager : MonoBehaviour
             GameObject shieldInvader = shieldInvaders[Random.Range(0, shieldListLenght)];
             shieldInvader.GetComponent<InvaderScript>().canUseShield = true;
             shieldInvaders.Clear();
-            
+
         }
     }
 
@@ -240,16 +241,31 @@ public class InvaderGameManager : MonoBehaviour
         if (lives <= 0)
         {
 
-            if(score > hiScore)
+            if (score > hiScore)
             {
                 hiScore = score;
 
             }
-           
+
             // Call for GameOver
             GameOver();
 
         }
+
+    }
+
+    // Player Retries or returns to main menu
+
+    public void StoreHighscore()
+
+    {
+        if (score > hiScore)
+        {
+            hiScore = score;
+            PlayerPrefs.SetInt("HiScore", hiScore);
+            PlayerPrefs.Save();
+        }
+
 
     }
 
@@ -436,10 +452,17 @@ public class InvaderGameManager : MonoBehaviour
     {
 
         print("UPGRADE CALLED");
-        
-       
+
+
         upgrade.GetComponent<WeaponUpgrade>().ActivateUpgrade();
-        
+
+
+    }
+
+    public void IncreaseWeaponTier()
+    {
+        weaponTier += 1;
+        print("Upgraded");
 
     }
 
