@@ -84,9 +84,9 @@ public class PlayerController : MonoBehaviour
         if(bullet != null)
         {
             bullet.transform.position = cannon.position;
-            bullet.SetActive(true);
+            //bullet.SetActive(true);
             bullet.GetComponent<PlayerBullet>().bulletReflected = false;
-
+            bullet.GetComponent<PlayerBullet>().SetActive();
             //AudioSource audioData = bullet.GetComponent<AudioSource>();
             //audioData.Play();
             //string weapon = "Plasma";

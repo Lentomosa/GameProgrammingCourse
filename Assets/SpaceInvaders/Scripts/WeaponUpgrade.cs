@@ -61,7 +61,7 @@ public class WeaponUpgrade : MonoBehaviour
         if (other.gameObject.name == "Player")
         {
 
-
+            gameObject.SetActive(false);
             List<GameObject> bullets = player.GetComponent<BulletPool>().bullets;
             gameManager.GetComponent<InvaderGameManager>().IncreaseWeaponTier();
             weaponTier = gameManager.GetComponent<InvaderGameManager>().weaponTier;
@@ -86,7 +86,7 @@ public class WeaponUpgrade : MonoBehaviour
             //bullet.GetComponent<PlayerBullet>().LoadClipsFor(weapon);
             //bullet.GetComponent<PlayerBullet>().PlayClip();
 
-            gameObject.SetActive(false);
+
         }
     }
 

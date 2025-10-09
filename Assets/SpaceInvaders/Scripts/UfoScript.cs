@@ -58,7 +58,8 @@ public class UfoScript : MonoBehaviour
         {
             Damage(1);
             print("hit by player");
-            other.gameObject.SetActive(false);
+            //other.gameObject.SetActive(false);
+            other.gameObject.GetComponent<PlayerBullet>().SetInactive();
         }
     }
 

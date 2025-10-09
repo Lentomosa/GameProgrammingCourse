@@ -187,7 +187,8 @@ public class InvaderScript : MonoBehaviour
             else
             {
                 other.gameObject.GetComponent<PlayerBullet>().RestoreDurability();
-                other.gameObject.SetActive(false);
+                //other.gameObject.SetActive(false);
+                other.gameObject.GetComponent<PlayerBullet>().SetInactive();
             }
         }
     }

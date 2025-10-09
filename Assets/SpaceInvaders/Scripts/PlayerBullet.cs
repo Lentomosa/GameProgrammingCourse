@@ -8,6 +8,9 @@ public class PlayerBullet : MonoBehaviour
     public bool bulletReflected = false;
     public float bulletSpeed = 10f;
     public bool canMove = true;
+    //public Vector3 reflectVector;
+    public Quaternion randomRotation;
+    public Quaternion originalRotation;
 
     public AudioSource audioSource;
     // public AudioClip[] audioClip;
@@ -29,6 +32,8 @@ public class PlayerBullet : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         FiringSound();
 
+
+
     }
 
     // Update is called once per frame
@@ -45,18 +50,24 @@ public class PlayerBullet : MonoBehaviour
             // Move bullet down
             if (bulletReflected)
             {
-                transform.Translate(Vector2.down * bulletSpeed * Time.deltaTime);
+
+
+                
+                transform.Translate(Vector2.up * bulletSpeed * Time.deltaTime, gameObject.transform);
+                
             }
 
             // Set inactive if out of playable area
             if (transform.position.y > 12f)
             {
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
+                SetInactive();
             }
 
             if (transform.position.y < -6f)
             {
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
+                SetInactive();
             }
         }
     }
@@ -64,6 +75,9 @@ public class PlayerBullet : MonoBehaviour
     // Called in InvaderShield when colliding with a player bullet
     public void ReflectBullet()
     {
+        //reflectVector = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, -0.5f), 0).normalized;
+        randomRotation =  Quaternion.Euler(0f, 0f, Random.Range(-150f, -210f));
+        transform.rotation = randomRotation;
         bulletReflected = true;
     }
 
@@ -109,6 +123,22 @@ public class PlayerBullet : MonoBehaviour
     }
 
 
+    public void SetActive()
+    {
+        transform.rotation = originalRotation;
+        gameObject.SetActive(true);
+        canMove = true;
+    }
+
+
+    public void SetInactive()
+    {
+        gameObject.SetActive(false);
+        //transform.rotation = originalRotation;
+        canMove = false;
+    }
+
+
 
 
 
@@ -130,9 +160,9 @@ public void PlayClip()
     {
         if (other.gameObject.name == "Player" && bulletReflected)
         {
-            gameObject.SetActive(false);
-            other.gameObject.GetComponent<PlayerController>().DecreaseLives();
             
+            other.gameObject.GetComponent<PlayerController>().DecreaseLives();
+            SetInactive();
         }
 
     }
