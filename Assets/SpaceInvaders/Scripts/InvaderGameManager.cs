@@ -291,6 +291,7 @@ public class InvaderGameManager : MonoBehaviour
         EnablePlayer();
         gamePaused = false;
         EnableEnemies();
+        EnableUpgrades();
     }
 
     // Open Pause menu
@@ -299,6 +300,7 @@ public class InvaderGameManager : MonoBehaviour
 
         DisableEnemies();
         DisablePlayer();
+        DisableUpgrades();
         continueButton.SetActive(true);
         retryButton.SetActive(true);
         menuButton.SetActive(true);
@@ -333,6 +335,7 @@ public class InvaderGameManager : MonoBehaviour
 
         DisableEnemies();
         DisablePlayer();
+        DisableUpgrades();
         ResetScore();
 
 
@@ -421,6 +424,18 @@ public class InvaderGameManager : MonoBehaviour
             invaderBullets[i].GetComponent<EnemyBullet>().canMove = true;
 
         }
+
+    }
+
+    public void DisableUpgrades()
+    {
+        upgrade.GetComponent<WeaponUpgrade>().canMove = false;
+
+    }
+
+    public void EnableUpgrades()
+    {
+        upgrade.GetComponent<WeaponUpgrade>().canMove = true;
 
     }
 
