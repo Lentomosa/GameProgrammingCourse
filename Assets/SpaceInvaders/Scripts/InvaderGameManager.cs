@@ -236,6 +236,7 @@ public class InvaderGameManager : MonoBehaviour
         gamePaused = true;
         DisableEnemies();
         DisablePlayer();
+        DisableUpgrades();
 
         // Check if player has no more lives
         if (lives <= 0)
