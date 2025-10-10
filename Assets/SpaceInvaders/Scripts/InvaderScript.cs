@@ -88,6 +88,7 @@ public class InvaderScript : MonoBehaviour
                 shieldInstance.SetActive(true);
                 shieldTimer = 0f;
                 shieldActive = true;
+                shieldInstance.GetComponent<InvaderShield>().ResetFlickerTimer();
                 }
 
                 if (shieldTimer > shieldTime && shieldActive)
@@ -96,6 +97,7 @@ public class InvaderScript : MonoBehaviour
                 shieldTimer = 0f;
                 shieldActive = false;
                 canUseShield = false;
+                shieldInstance.GetComponent<InvaderShield>().ResetFlickerTimer();
                 }
             }
             
@@ -235,7 +237,7 @@ public class InvaderScript : MonoBehaviour
                 else
                 {
                     Debug.Log($"{gameObject.name} found an object with a different tag below: {hit.collider.gameObject.name}");
-                    hasObstacle = false;
+                    hasObstacle = true;
                 }
             }
 

@@ -114,6 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4a355d9aa1e3340853666962971f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flickerInterval: 0.1
+  timer: 0
 --- !u!136 &8397403755563124421
 CapsuleCollider:
   m_ObjectHideFlags: 0
