@@ -17,6 +17,7 @@ public class BulletPool : MonoBehaviour
         for(int i=0; i < bulletAmount; i++)
         {
             tmp = Instantiate(bulletToPool);
+            tmp.gameObject.GetComponent<PlayerBullet>().LoadSound();
             tmp.SetActive(false);
             bullets.Add(tmp);
             print("Added to the pool");

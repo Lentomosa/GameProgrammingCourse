@@ -16,6 +16,7 @@ public class WeaponUpgrade : MonoBehaviour
     public Transform spawnPos;
     public int weaponTier;
     public List<string> weapons;
+    public List<GameObject> bullets;
 
     //public GameObject[] bullets = GameObject.FindGameObjectsWithTag("PlayerBullet");
 
@@ -25,6 +26,7 @@ public class WeaponUpgrade : MonoBehaviour
         gameManager = GameObject.Find("GameManager");
         gameObject.SetActive(false);
         weaponTier = gameManager.GetComponent<InvaderGameManager>().weaponTier;
+
 
     }
 
@@ -39,17 +41,17 @@ public class WeaponUpgrade : MonoBehaviour
 
         }
 
-        // Set the ufo inactive if out of the playable area
+        // Set the upgrade inactive if out of the playable area
         if (transform.position.y > 16f)
         {
             gameObject.SetActive(false);
-            gameManager.GetComponent<InvaderGameManager>().UfoKilled();
+
         }
 
         if (transform.position.y < -16f)
         {
             gameObject.SetActive(false);
-            gameManager.GetComponent<InvaderGameManager>().UfoKilled();
+ 
         }
     }
 
@@ -62,10 +64,11 @@ public class WeaponUpgrade : MonoBehaviour
         {
 
             gameObject.SetActive(false);
-            List<GameObject> bullets = player.GetComponent<BulletPool>().bullets;
+           // List<GameObject> bullets = player.GetComponent<BulletPool>().bullets;
             gameManager.GetComponent<InvaderGameManager>().IncreaseWeaponTier();
             weaponTier = gameManager.GetComponent<InvaderGameManager>().weaponTier;
             //for (int i = 0; i < bullets.Length; i++)
+            bullets = player.GetComponent<BulletPool>().bullets;
 
             foreach (GameObject obj in bullets)
                 
@@ -74,7 +77,7 @@ public class WeaponUpgrade : MonoBehaviour
                 //string weapon = "Plasma";
                 //string weapon = "Plasma";
                 obj.GetComponent<PlayerBullet>().LoadClipsFor(weapons[weaponTier]);
-                obj.GetComponent<PlayerBullet>().PlayClip();
+               // obj.GetComponent<PlayerBullet>().PlayClip();
 
             }
 

@@ -29,11 +29,16 @@ public class PlayerBullet : MonoBehaviour
     void Start()
     {
         //weaponType = Laser;
+
+
+
+
+    }
+
+    public void LoadSound()
+    {
         audioSource = GetComponent<AudioSource>();
         FiringSound();
-
-
-
     }
 
     // Update is called once per frame
