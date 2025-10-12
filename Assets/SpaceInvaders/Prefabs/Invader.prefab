@@ -172,13 +172,12 @@ MonoBehaviour:
   collidedRight: 0
   offSetY: -1
   playerPos: {fileID: 0}
-  player: {fileID: 0}
   gun: {fileID: 0}
   canReflect: 0
   shield: {fileID: 0}
   shieldPrefab: {fileID: 8944842588245750466, guid: daba8c811f5501c4cb021a1936b6ed32,
     type: 3}
-  shieldTime: 3
+  shieldTime: 5
   shieldActive: 0
   canUseShield: 0
   hasObstacle: 0

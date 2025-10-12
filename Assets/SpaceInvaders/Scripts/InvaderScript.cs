@@ -89,6 +89,10 @@ public class InvaderScript : MonoBehaviour
                 shieldTimer = 0f;
                 shieldActive = true;
                 shieldInstance.GetComponent<InvaderShield>().ResetFlickerTimer();
+                    // Send shield time duration to the shield
+                shieldInstance.GetComponent<InvaderShield>().shieldDuration = shieldTime;
+                    //shieldInstance.GetComponent<InvaderShield>().shieldWarning = true;
+                    //StartCoroutine(Timer());
                 }
 
                 if (shieldTimer > shieldTime && shieldActive)
@@ -97,7 +101,8 @@ public class InvaderScript : MonoBehaviour
                 shieldTimer = 0f;
                 shieldActive = false;
                 canUseShield = false;
-                shieldInstance.GetComponent<InvaderShield>().ResetFlickerTimer();
+                //shieldInstance.GetComponent<InvaderShield>().ResetFlickerTimer();
+               // StartCoroutine(Timer());
                 }
             }
             
@@ -108,6 +113,23 @@ public class InvaderScript : MonoBehaviour
                 gameManager.GetComponent<InvaderGameManager>().GameOver();
             }
         }
+    }
+
+
+    public IEnumerator Timer()
+    {
+
+        yield return new WaitForSeconds(1f);
+
+        ShieldReflectionSwitch();
+
+    }
+
+    public void ShieldReflectionSwitch()
+
+    {
+
+
     }
 
     // Shooting of pooled bullets

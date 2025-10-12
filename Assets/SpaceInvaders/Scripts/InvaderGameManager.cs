@@ -18,6 +18,7 @@ public class InvaderGameManager : MonoBehaviour
     public float shieldMinTime = 1f;
     public float enemyShieldTime = 0f;
     public float enemyShieldThreshold = 2f;
+    public float enemyShieldWarning = 0.5f;
 
     public float ufoTime = 1;
     public bool ufoActive = false;
