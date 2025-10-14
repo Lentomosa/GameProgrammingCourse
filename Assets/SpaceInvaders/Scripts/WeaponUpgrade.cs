@@ -45,17 +45,17 @@ public class WeaponUpgrade : MonoBehaviour
         if (transform.position.y > 16f)
         {
             gameObject.SetActive(false);
-
+            gameManager.GetComponent<InvaderGameManager>().upgradeActive = false;
         }
 
         if (transform.position.y < -16f)
         {
             gameObject.SetActive(false);
- 
+            gameManager.GetComponent<InvaderGameManager>().upgradeActive = false;
         }
     }
 
-    // Check if the ufo is hit by the player bullet
+    // Check if the player collides with the upgrade
     private void OnTriggerEnter(Collider other)
     {
 
@@ -63,7 +63,12 @@ public class WeaponUpgrade : MonoBehaviour
         if (other.gameObject.name == "Player")
         {
 
+
+            // Set Upgrade inactive
+
+            gameManager.GetComponent<InvaderGameManager>().upgradeActive = false;
             gameObject.SetActive(false);
+
            // List<GameObject> bullets = player.GetComponent<BulletPool>().bullets;
             gameManager.GetComponent<InvaderGameManager>().IncreaseWeaponTier();
             weaponTier = gameManager.GetComponent<InvaderGameManager>().weaponTier;
@@ -103,7 +108,7 @@ public class WeaponUpgrade : MonoBehaviour
 
         transform.position = new Vector3(randomX, heightY, 0);
         gameObject.SetActive(true);
-        //gameManager.GetComponent<InvaderGameManager>().ufoActive = true;
+        gameManager.GetComponent<InvaderGameManager>().upgradeActive = true;
 
 
         // Pick Left or Right to approach from
@@ -115,6 +120,8 @@ public class WeaponUpgrade : MonoBehaviour
 
 
     }
+
+
 
 
 

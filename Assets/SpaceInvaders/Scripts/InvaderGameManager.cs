@@ -21,8 +21,11 @@ public class InvaderGameManager : MonoBehaviour
     public float enemyShieldWarning = 0.5f;
 
     public float ufoTime = 1;
+    public float ufoThreshold;
     public bool ufoActive = false;
     public float upgradeTime;
+    public float upgradeThreshold;
+    public bool upgradeActive = false;
 
 
     public bool gameOver = false;
@@ -94,6 +97,14 @@ public class InvaderGameManager : MonoBehaviour
             if (!ufoActive)
             {
                 ufoTime += Time.deltaTime;
+            }
+
+            // Update Upgrade timer if Upgrade is not active
+            if (!upgradeActive)
+
+            {
+                upgradeTime += Time.deltaTime;
+
             }
         }
 
@@ -175,11 +186,21 @@ public class InvaderGameManager : MonoBehaviour
 
 
         // Activate Ufo if time has been reached and Ufo is not already active
-        if (ufoTime >= 5 && !ufoActive)
+        if (ufoTime >= ufoThreshold && !ufoActive)
         {
             ufo.GetComponent<UfoScript>().ActivateUfo();
-            UpgradeSpawn();
+
             ufoTime = 0;
+        }
+
+
+        // Activate Upgrade if time has been reached and Upgrade is not already active
+
+        if (upgradeTime >= upgradeThreshold && !upgradeActive)
+        {
+            UpgradeSpawn();
+            upgradeTime = 0;
+
         }
 
 
@@ -475,7 +496,7 @@ public class InvaderGameManager : MonoBehaviour
 
         print("UPGRADE CALLED");
 
-
+        upgradeActive = true;
         upgrade.GetComponent<WeaponUpgrade>().ActivateUpgrade();
 
 
