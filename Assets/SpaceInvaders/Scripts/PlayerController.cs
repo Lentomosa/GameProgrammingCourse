@@ -63,14 +63,16 @@ public class PlayerController : MonoBehaviour
             transform.Translate(Vector2.right * hor * speed * Time.deltaTime);
         
 
-             if(Input.GetButtonDown("Fire1") && canMove)
-             {
-                if(canShoot)
-                { 
-                Shoot();
-                }
-            }
 
+
+        }
+
+        // If the player is allowed to shoot
+        if (Input.GetButtonDown("Fire1") && canShoot)
+        {
+ 
+            Shoot();
+            
         }
 
 
@@ -152,6 +154,7 @@ public class PlayerController : MonoBehaviour
         if (canDamage)
         {
             canMove = false;
+            canShoot = false;
             canDamage = false;
             lives--;
             gameManager.GetComponent<InvaderGameManager>().LoseLive();
@@ -171,6 +174,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         transform.position = new Vector3(0f, -5f, 0f);
         canMove = true;
+        canShoot = true;
 
         // Continue the game
         gameManager.GetComponent<InvaderGameManager>().Continue();
