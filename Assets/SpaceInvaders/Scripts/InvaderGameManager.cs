@@ -22,6 +22,7 @@ public class InvaderGameManager : MonoBehaviour
 
     public float ufoTime = 1;
     public bool ufoActive = false;
+    public float upgradeTime;
 
 
     public bool gameOver = false;
@@ -88,6 +89,12 @@ public class InvaderGameManager : MonoBehaviour
         {
             enemyBulletTime += Time.deltaTime;
             enemyShieldTime += Time.deltaTime;
+
+            // Update Ufo timer if Ufo is not active
+            if (!ufoActive)
+            {
+                ufoTime += Time.deltaTime;
+            }
         }
 
         // Check if bullet threshold has been reached
@@ -165,11 +172,7 @@ public class InvaderGameManager : MonoBehaviour
         }
 
 
-        // Update Ufo timer if Ufo is not active
-        if (!ufoActive)
-        {
-            ufoTime += Time.deltaTime;
-        }
+
 
         // Activate Ufo if time has been reached and Ufo is not already active
         if (ufoTime >= 5 && !ufoActive)
@@ -178,6 +181,8 @@ public class InvaderGameManager : MonoBehaviour
             UpgradeSpawn();
             ufoTime = 0;
         }
+
+
     }
 
 
