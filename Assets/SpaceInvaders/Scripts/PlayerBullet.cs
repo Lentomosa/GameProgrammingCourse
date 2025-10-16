@@ -38,7 +38,7 @@ public class PlayerBullet : MonoBehaviour
     public void LoadSound()
     {
         audioSource = GetComponent<AudioSource>();
-        FiringSound();
+        DefaultFiringSound();
     }
 
     // Update is called once per frame
@@ -86,7 +86,7 @@ public class PlayerBullet : MonoBehaviour
         bulletReflected = true;
     }
 
-    public void FiringSound()
+    public void DefaultFiringSound()
 
     {
         // Set Active Sound

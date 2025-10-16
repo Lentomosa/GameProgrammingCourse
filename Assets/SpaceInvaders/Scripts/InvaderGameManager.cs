@@ -26,6 +26,9 @@ public class InvaderGameManager : MonoBehaviour
     public float upgradeTime;
     public float upgradeThreshold;
     public bool upgradeActive = false;
+    public float upgradeDuration = 2f;
+    public float upgradeActiveTime;
+    public bool playerHasUpgrade;
 
 
     public bool gameOver = false;
@@ -33,7 +36,7 @@ public class InvaderGameManager : MonoBehaviour
     public bool gamePaused = false;
 
     public int score;
-    public int sessionScore;
+   // public int sessionScore;
     public int hiScore;
     public int lives = 3;
     public float invaderChangeTime = 1;
@@ -80,6 +83,9 @@ public class InvaderGameManager : MonoBehaviour
         //Find Upgrade
         // upgrade = GameObject.Find("WeaponUpgrade");
 
+        // Spawn First wave of invader
+        invaderSpawner.GetComponent<AlienSpawner>().InvaderSpawn();
+
     }
 
     // Update is called once per frame
@@ -104,6 +110,12 @@ public class InvaderGameManager : MonoBehaviour
 
             {
                 upgradeTime += Time.deltaTime;
+
+            }
+
+            if (playerHasUpgrade)
+            {
+                upgradeActiveTime += Time.deltaTime;
 
             }
         }
@@ -201,6 +213,17 @@ public class InvaderGameManager : MonoBehaviour
             UpgradeSpawn();
             upgradeTime = 0;
 
+        }
+
+        // Switch upgrade off after when time runs out
+
+        if (upgradeActiveTime >= upgradeDuration)
+        {
+            player.GetComponent<PlayerController>().UpgradeHide();
+            upgradeActiveTime = 0f;
+            playerHasUpgrade = false;
+            ReduceWeaponTier();
+            upgrade.GetComponent<WeaponUpgrade>().LoadSounds();
         }
 
 
@@ -506,6 +529,13 @@ public class InvaderGameManager : MonoBehaviour
     {
         weaponTier += 1;
         print("Upgraded");
+
+    }
+
+    public void ReduceWeaponTier()
+    {
+        weaponTier -= 1;
+        print("Upgrade End");
 
     }
 

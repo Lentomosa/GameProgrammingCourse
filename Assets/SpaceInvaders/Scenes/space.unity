@@ -294,6 +294,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1150134619}
+  - {fileID: 876959490}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -319,6 +320,7 @@ MonoBehaviour:
   gameManager: {fileID: 1533989963}
   collidedRight: 0
   collidedLeft: 0
+  childObj: {fileID: 0}
 --- !u!114 &284811831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1222,6 +1224,104 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &876959489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 876959490}
+  - component: {fileID: 876959493}
+  - component: {fileID: 876959492}
+  - component: {fileID: 876959491}
+  m_Layer: 0
+  m_Name: UpgradeVisual
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &876959490
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876959489}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.398, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.5, z: 0.3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 284811829}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &876959491
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876959489}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!23 &876959492
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876959489}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a7d6841a05012f6409bde4d3830de054, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &876959493
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876959489}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &951300507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1559,6 +1659,11 @@ PrefabInstance:
       objectReference: {fileID: 609333564}
     - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
         type: 3}
+      propertyPath: ufoTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
+        type: 3}
       propertyPath: upgrade
       value: 
       objectReference: {fileID: 1561708069}
@@ -1582,6 +1687,11 @@ PrefabInstance:
       propertyPath: gameOverText
       value: 
       objectReference: {fileID: 512022090}
+    - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
+        type: 3}
+      propertyPath: ufoThreshold
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
         type: 3}
       propertyPath: bulletMaxTime
@@ -1621,6 +1731,11 @@ PrefabInstance:
         type: 3}
       propertyPath: enemyShieldTime
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
+        type: 3}
+      propertyPath: upgradeThreshold
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
         type: 3}

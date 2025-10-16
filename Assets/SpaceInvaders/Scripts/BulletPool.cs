@@ -11,10 +11,25 @@ public class BulletPool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CreateBulletPool();
+
+
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void CreateBulletPool()
+    {
+
         // Create bullet pool
         bullets = new List<GameObject>();
         GameObject tmp;
-        for(int i=0; i < bulletAmount; i++)
+        for (int i = 0; i < bulletAmount; i++)
         {
             tmp = Instantiate(bulletToPool);
             tmp.gameObject.GetComponent<PlayerBullet>().LoadSound();
@@ -22,25 +37,19 @@ public class BulletPool : MonoBehaviour
             bullets.Add(tmp);
             print("Added to the pool");
         }
-        
+
     }
 
     //Get inactive bullets from pool
     public GameObject GetPooledBullet()
     {
-        for(int i=0; i< bulletAmount; i++)
+        for (int i = 0; i < bulletAmount; i++)
         {
-            if(!bullets[i].activeInHierarchy)
+            if (!bullets[i].activeInHierarchy)
             {
                 return bullets[i];
             }
         }
         return null;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

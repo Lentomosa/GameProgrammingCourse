@@ -30,7 +30,7 @@ public class InvaderShield : MonoBehaviour
     {
         //timer += Time.deltaTime;
         warningTimer += Time.deltaTime;
-        Reflection();
+        ShieldUpdate();
         /*
         if (timer > flickerInterval)
         {
@@ -50,7 +50,7 @@ public class InvaderShield : MonoBehaviour
 
     }
 
-    public void Reflection()
+    public void ShieldUpdate()
     {
         if (warningTimer < shieldWarning || warningTimer > (shieldDuration - shieldWarning))
         {

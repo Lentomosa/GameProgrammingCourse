@@ -11,16 +11,7 @@ public class EnemyBulletPool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Create bullet pool
-        bullets = new List<GameObject>();
-        GameObject tmp;
-        for (int i = 0; i < bulletAmount; i++)
-        {
-            tmp = Instantiate(bulletToPool);
-            tmp.SetActive(false);
-            bullets.Add(tmp);
-            print("Added to the pool");
-        }
+        CreateBulletPool();
 
     }
 
@@ -40,6 +31,22 @@ public class EnemyBulletPool : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    public void CreateBulletPool()
+    {
+
+        // Create bullet pool
+        bullets = new List<GameObject>();
+        GameObject tmp;
+        for (int i = 0; i < bulletAmount; i++)
+        {
+            tmp = Instantiate(bulletToPool);
+            tmp.SetActive(false);
+            bullets.Add(tmp);
+            print("Added to the pool");
+        }
 
     }
 }

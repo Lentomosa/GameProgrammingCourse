@@ -17,6 +17,7 @@ public class WeaponUpgrade : MonoBehaviour
     public int weaponTier;
     public List<string> weapons;
     public List<GameObject> bullets;
+    public float upgradeDuration;
 
     //public GameObject[] bullets = GameObject.FindGameObjectsWithTag("PlayerBullet");
 
@@ -26,7 +27,7 @@ public class WeaponUpgrade : MonoBehaviour
         gameManager = GameObject.Find("GameManager");
         gameObject.SetActive(false);
         weaponTier = gameManager.GetComponent<InvaderGameManager>().weaponTier;
-
+        upgradeDuration = gameManager.GetComponent<InvaderGameManager>().upgradeDuration;
 
     }
 
@@ -69,6 +70,11 @@ public class WeaponUpgrade : MonoBehaviour
             gameManager.GetComponent<InvaderGameManager>().upgradeActive = false;
             gameObject.SetActive(false);
 
+            gameManager.GetComponent<InvaderGameManager>().playerHasUpgrade = true;
+
+            // Activate the player visual effect for the upgrade
+            other.GetComponent<PlayerController>().UpgradeShow();
+
            // List<GameObject> bullets = player.GetComponent<BulletPool>().bullets;
             gameManager.GetComponent<InvaderGameManager>().IncreaseWeaponTier();
             weaponTier = gameManager.GetComponent<InvaderGameManager>().weaponTier;
@@ -97,7 +103,24 @@ public class WeaponUpgrade : MonoBehaviour
 
         }
     }
+    
+    public void LoadSounds()
+    {
+        bullets = player.GetComponent<BulletPool>().bullets;
+        weaponTier = gameManager.GetComponent<InvaderGameManager>().weaponTier;
+        foreach (GameObject obj in bullets)
 
+        {
+
+            //string weapon = "Plasma";
+            //string weapon = "Plasma";
+            obj.GetComponent<PlayerBullet>().LoadClipsFor(weapons[weaponTier]);
+            // obj.GetComponent<PlayerBullet>().PlayClip();
+
+        }
+
+    }
+    
 
 
     public void ActivateUpgrade()

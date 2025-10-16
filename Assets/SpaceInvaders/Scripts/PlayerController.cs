@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public bool collidedRight = false;
     public bool collidedLeft = false;
 
-    
+    public GameObject childObj;
 
 
 
@@ -25,11 +25,20 @@ public class PlayerController : MonoBehaviour
         bulletPool = GetComponent<BulletPool>();
         lives = gameManager.GetComponent<InvaderGameManager>().lives;
 
+
+        //Find the child object that indicated if an upgrade is active
+        childObj = transform.Find("UpgradeVisual").gameObject;
+  
+
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
+
+
 
         float hor = Input.GetAxis("Horizontal");
 
@@ -77,6 +86,8 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+
 
     // Player shoots a bullet from the pool.
     public void Shoot()
@@ -128,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    // Check if player collides with the bumpers
+    // Check if player stops colliding with the bumpers
     private void OnTriggerExit(Collider other)
     {
 
@@ -182,5 +193,29 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         canDamage = true;
     }
+
+    public void UpgradeShow()
+
+    {
+        if (!childObj.gameObject.activeSelf)
+        {
+            childObj.SetActive(true);
+
+        }
+        
+    }
+
+    public void UpgradeHide()
+
+    {
+        if (childObj.gameObject.activeSelf)
+        {
+            childObj.SetActive(false);
+
+        }
+
+    }
+
+
 
 }

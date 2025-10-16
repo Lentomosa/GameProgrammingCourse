@@ -14,7 +14,7 @@ public class AlienSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvaderSpawn();
+       // InvaderSpawn();
 
     }
 
