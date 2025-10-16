@@ -307,7 +307,7 @@ public class InvaderGameManager : MonoBehaviour
 
     // Player Retries or returns to main menu
 
-    public void StoreHighscore()
+    public void StoreHiscore()
 
     {
         if (score > hiScore)

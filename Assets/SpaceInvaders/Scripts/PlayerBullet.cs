@@ -121,12 +121,13 @@ public class PlayerBullet : MonoBehaviour
             Debug.LogWarning($"No audio found in Resources/{folderPath}");
     }
 
+    /*
     public void PlayRandom()
     {
         if (clips == null || clips.Length == 0) return;
         audioSource.PlayOneShot(clips[Random.Range(0, clips.Length)]);
     }
-
+    */
 
     public void SetActive()
     {

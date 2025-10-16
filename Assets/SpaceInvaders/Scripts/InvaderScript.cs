@@ -115,7 +115,7 @@ public class InvaderScript : MonoBehaviour
         }
     }
 
-
+    /*
     public IEnumerator Timer()
     {
 
@@ -125,12 +125,16 @@ public class InvaderScript : MonoBehaviour
 
     }
 
+
+
     public void ShieldReflectionSwitch()
 
     {
 
 
     }
+
+    */
 
     // Shooting of pooled bullets
     public void Shoot()

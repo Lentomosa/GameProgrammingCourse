@@ -118,7 +118,7 @@ public class InvaderShield : MonoBehaviour
 
 
 
-
+    /*
     public IEnumerator Timer()
     {
 
@@ -127,5 +127,5 @@ public class InvaderShield : MonoBehaviour
         FlipShield();
 
     }
-
+    */
 }
