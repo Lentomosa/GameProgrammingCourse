@@ -5,6 +5,7 @@ using UnityEngine;
 public class AlienSpawner : MonoBehaviour
 {
     public GameObject alienPrefab;
+    public List<GameObject> aliens;
     public int rows = 5;
     public int columns = 10;
     public float spacingX = 1.5f;
@@ -28,6 +29,8 @@ public class AlienSpawner : MonoBehaviour
 
     public void InvaderSpawn()
     {
+        aliens = new List<GameObject>();
+        GameObject tmp;
         startPos = transform.position;
         
         for (int row = 0; row < rows; row++)
@@ -35,7 +38,8 @@ public class AlienSpawner : MonoBehaviour
             for (int col = 0; col < columns; col++)
             {
                 Vector3 spawnPos = startPos + new Vector3(col * spacingX, -row * spacingY, 0);
-                Instantiate(alienPrefab, spawnPos, Quaternion.identity, transform);
+                tmp = Instantiate(alienPrefab, spawnPos, Quaternion.identity, transform);
+                aliens.Add(tmp);
             }
         }
     }
