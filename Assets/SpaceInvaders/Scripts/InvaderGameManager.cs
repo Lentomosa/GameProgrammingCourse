@@ -508,6 +508,20 @@ public class InvaderGameManager : MonoBehaviour
         // Spawn a new wave of invaders if no invaders are found
         if (invaders.Length <= 1)
         {
+            // Deactivate active player bullets
+
+            List<GameObject> bullets = player.GetComponent<BulletPool>().bullets;
+
+            foreach (GameObject obj in bullets)
+
+            {
+
+                obj.gameObject.SetActive(false);
+
+
+            }
+
+            // spawn invaders
             invaderSpawner.GetComponent<AlienSpawner>().InvaderSpawn();
             print("ALL DEAD");
             IncreaseDifficulty();
