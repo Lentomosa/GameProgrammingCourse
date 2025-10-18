@@ -36,11 +36,10 @@ public class InvaderGameManager : MonoBehaviour
     public bool gamePaused = false;
 
     public int score;
-   // public int sessionScore;
     public int hiScore;
     public int lives = 3;
     public float invaderChangeTime = 1;
-    //public float defaulInvaderChangeTime = 3;
+
     public int weaponTier = 0;
 
     public GameObject player;
@@ -56,7 +55,6 @@ public class InvaderGameManager : MonoBehaviour
     public GameObject upgrade;
 
     public List<GameObject> shieldInvaders;
-    //public GameObject[] invaders;
     public List<GameObject> invaders;
 
     // Start is called before the first frame update
@@ -81,8 +79,6 @@ public class InvaderGameManager : MonoBehaviour
         menuButton.SetActive(false);
         continueButton.SetActive(false);
 
-        //Find Upgrade
-        // upgrade = GameObject.Find("WeaponUpgrade");
 
         // Spawn First wave of invader
         invaderSpawner.GetComponent<AlienSpawner>().InvaderSpawn();
@@ -114,6 +110,7 @@ public class InvaderGameManager : MonoBehaviour
 
             }
 
+            // Update Active time if Upgrade is active
             if (playerHasUpgrade)
             {
                 upgradeActiveTime += Time.deltaTime;
@@ -459,7 +456,6 @@ public class InvaderGameManager : MonoBehaviour
         for (int i = 0; i < invaders.Length; i++)
         {
             invaders[i].GetComponent<InvaderScript>().canMove = true;
-            //invaders[i].GetComponent<InvaderScript>().changeTime += 0.4f;
             invaders[i].GetComponent<InvaderScript>().canShoot = true;
 
         }
@@ -478,6 +474,8 @@ public class InvaderGameManager : MonoBehaviour
         }
 
     }
+
+    // Enable and disable upgrade movement
 
     public void DisableUpgrades()
     {
@@ -503,12 +501,6 @@ public class InvaderGameManager : MonoBehaviour
     {
 
         print("INVADERKILLED CALLED");
-        //invaders = GameObject.FindGameObjectsWithTag("Enemy");
-
-
-       //invaders = new List<GameObject>();
-      
-
         invaders = invaderSpawner.GetComponent<AlienSpawner>().aliens;
 
         // Spawn a new wave of invaders if no invaders are found
@@ -519,63 +511,21 @@ public class InvaderGameManager : MonoBehaviour
             print("ALL DEAD");
             IncreaseDifficulty();
 
-            // Deactivate active player bullets
+            // Deactivate player bullets
 
             List<GameObject> bullets = player.GetComponent<BulletPool>().bullets;
 
             foreach (GameObject obj in bullets)
 
             {
-
                 obj.gameObject.SetActive(false);
 
-
             }
         }
 
-        /*
-        foreach (GameObject obj in invaders)
-
-        {
-
-
-
-
-            if(obj.GetComponent<InvaderScript>().HP <= 0)
-            {
-                //invaders.Remove(obj);
-                //print(invaders.Count);
-
-
-            }
- 
-
-        }
-        print(invaders);
-
-        */
-        
-
-
-        
-
-        
-
-     
-       /* if (!invaders.activeInHierarchy) //(invaders.Capacity <= 1)
-        {
-
-
-
-
-            // spawn invaders
-            invaderSpawner.GetComponent<AlienSpawner>().InvaderSpawn();
-            print("ALL DEAD");
-            IncreaseDifficulty();
-        }
-        */
     }
 
+    // Spawn upgrade
     public void UpgradeSpawn()
     {
 
@@ -587,6 +537,7 @@ public class InvaderGameManager : MonoBehaviour
 
     }
 
+    // Increase weapon tier
     public void IncreaseWeaponTier()
     {
         weaponTier += 1;
@@ -594,6 +545,7 @@ public class InvaderGameManager : MonoBehaviour
 
     }
 
+    // Reduce weapon tier
     public void ReduceWeaponTier()
     {
         weaponTier -= 1;

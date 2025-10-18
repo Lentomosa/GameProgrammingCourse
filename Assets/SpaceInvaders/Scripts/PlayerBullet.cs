@@ -22,19 +22,17 @@ public class PlayerBullet : MonoBehaviour
     //public string weaponType;
 
 
-    [SerializeField] public string weapon;  // e.g. "Laser", "Rocket"
+    [SerializeField] public string weapon;  // "Laser", "Plasma"
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //weaponType = Laser;
-
-
 
 
     }
 
+    // Get audio source and load clips to it
     public void LoadSound()
     {
         audioSource = GetComponent<AudioSource>();
@@ -55,9 +53,7 @@ public class PlayerBullet : MonoBehaviour
             // Move bullet down
             if (bulletReflected)
             {
-
-
-                
+ 
                 transform.Translate(Vector2.up * bulletSpeed * Time.deltaTime, gameObject.transform);
                 
             }
@@ -80,7 +76,6 @@ public class PlayerBullet : MonoBehaviour
     // Called in InvaderShield when colliding with a player bullet
     public void ReflectBullet()
     {
-        //reflectVector = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, -0.5f), 0).normalized;
         randomRotation =  Quaternion.Euler(0f, 0f, Random.Range(-150f, -210f));
         transform.rotation = randomRotation;
         bulletReflected = true;
@@ -89,31 +84,15 @@ public class PlayerBullet : MonoBehaviour
     public void DefaultFiringSound()
 
     {
-        // Set Active Sound
-
-
-
-        // activeSound = audioClip[Random.Range(0, audioClip.Length)];
-
-        //clips = Resources.LoadAll<AudioClip>("Sounds/Weapons/Laser");
-
-        // Play sound
-        //audioSource.PlayOneShot(activeSound);
-        //audioSource.PlayOneShot(activeSound);
-
-
-        //LoadClipsFor(weaponName);
-        // string 
         weapon = "Laser";
         LoadClipsFor(weapon);
-
 
     }
     
 
     public void LoadClipsFor(string weapon)
     {
-        // Capitalization and whitespace must match your folder names
+        // Folder to load sounds from
         string folderPath = $"Sounds/Weapons/{weapon}";
         clips = Resources.LoadAll<AudioClip>(folderPath);
 
@@ -121,13 +100,6 @@ public class PlayerBullet : MonoBehaviour
             Debug.LogWarning($"No audio found in Resources/{folderPath}");
     }
 
-    /*
-    public void PlayRandom()
-    {
-        if (clips == null || clips.Length == 0) return;
-        audioSource.PlayOneShot(clips[Random.Range(0, clips.Length)]);
-    }
-    */
 
     public void SetActive()
     {
@@ -140,7 +112,6 @@ public class PlayerBullet : MonoBehaviour
     public void SetInactive()
     {
         gameObject.SetActive(false);
-        //transform.rotation = originalRotation;
         canMove = false;
     }
 
@@ -148,14 +119,13 @@ public class PlayerBullet : MonoBehaviour
 
 
 
-public void PlayClip()
-        // int index
+    // Play random loaded clip
+    public void PlayClip()
+        
     {
-        //int index = 0;
-
+        
         int index = Random.Range(0, clips.Length);
         if (index < 0 || index >= clips.Length) return;
-        //AudioSource.PlayClipAtPoint(clips[index], Vector3.zero);
         audioSource.PlayOneShot(clips[index]);
 
     }
@@ -173,7 +143,7 @@ public void PlayClip()
 
     }
 
-    //
+    // Restore bullet durability
     public void RestoreDurability()
     {
         durability = maxDurability;

@@ -87,24 +87,23 @@ public class InvaderScript : MonoBehaviour
 
                 if (shieldTimer > shieldTime && !shieldActive)
                 {
-                shieldInstance.SetActive(true);
-                shieldTimer = 0f;
-                shieldActive = true;
-                shieldInstance.GetComponent<InvaderShield>().ResetFlickerTimer();
+                    shieldInstance.SetActive(true);
+                    shieldTimer = 0f;
+                    shieldActive = true;
+                    shieldInstance.GetComponent<InvaderShield>().ResetFlickerTimer();
+                
                     // Send shield time duration to the shield
-                shieldInstance.GetComponent<InvaderShield>().shieldDuration = shieldTime;
-                    //shieldInstance.GetComponent<InvaderShield>().shieldWarning = true;
-                    //StartCoroutine(Timer());
+                    shieldInstance.GetComponent<InvaderShield>().shieldDuration = shieldTime;
+
                 }
 
                 if (shieldTimer > shieldTime && shieldActive)
                 {
-                shieldInstance.SetActive(false);
-                shieldTimer = 0f;
-                shieldActive = false;
-                canUseShield = false;
-                //shieldInstance.GetComponent<InvaderShield>().ResetFlickerTimer();
-               // StartCoroutine(Timer());
+                    shieldInstance.SetActive(false);
+                    shieldTimer = 0f;
+                    shieldActive = false;
+                    canUseShield = false;
+
                 }
             }
             
@@ -117,26 +116,7 @@ public class InvaderScript : MonoBehaviour
         }
     }
 
-    /*
-    public IEnumerator Timer()
-    {
 
-        yield return new WaitForSeconds(1f);
-
-        ShieldReflectionSwitch();
-
-    }
-
-
-
-    public void ShieldReflectionSwitch()
-
-    {
-
-
-    }
-
-    */
 
     // Shooting of pooled bullets
     public void Shoot()
@@ -217,7 +197,6 @@ public class InvaderScript : MonoBehaviour
             else
             {
                 other.gameObject.GetComponent<PlayerBullet>().RestoreDurability();
-                //other.gameObject.SetActive(false);
                 other.gameObject.GetComponent<PlayerBullet>().SetInactive();
             }
         }

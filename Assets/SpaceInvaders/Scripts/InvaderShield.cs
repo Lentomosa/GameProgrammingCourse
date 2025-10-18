@@ -19,44 +19,24 @@ public class InvaderShield : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager");
-        //StartCoroutine(Timer());
-
-        // shieldWarning = 0.5f
         shieldWarning = gameManager.GetComponent<InvaderGameManager>().enemyShieldWarning;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //timer += Time.deltaTime;
         warningTimer += Time.deltaTime;
         ShieldUpdate();
-        /*
-        if (timer > flickerInterval)
-        {
-            timer = 0f;
-
-            //if  (canReflect == false)
-            
-            //{
-              //FlipShield();
-            //}
-
-
-
-        }
-
-        */
 
     }
 
+    // Update shield status
     public void ShieldUpdate()
     {
         if (warningTimer < shieldWarning || warningTimer > (shieldDuration - shieldWarning))
         {
 
             canReflect = false;
-
             timer += Time.deltaTime;
 
             if (timer > flickerInterval)
@@ -72,8 +52,6 @@ public class InvaderShield : MonoBehaviour
             canReflect = true;
             gameObject.GetComponent<MeshRenderer>().enabled = true;
 
-
-
         }
     }
 
@@ -83,27 +61,26 @@ public class InvaderShield : MonoBehaviour
 
         if (other.gameObject.CompareTag("PlayerBullet") && canReflect)
         {
-
             print("Bullet Reflected");
-            // other.gameObject.SetActive(false);
             other.gameObject.GetComponent<PlayerBullet>().ReflectBullet();
         }
     }
 
+    // Switch shield renderer on and off
     private void FlipShield()
 
     {
         if (gameObject.GetComponent<MeshRenderer>().enabled == false)
         {
-            //gameObject.SetActive(true);
+
             gameObject.GetComponent<MeshRenderer>().enabled = true;
-            //StartCoroutine(Timer());
+
         }
         else
         {
-            //gameObject.SetActive(false);
+
             gameObject.GetComponent<MeshRenderer>().enabled = false;
-            //StartCoroutine(Timer());
+
         }
 
 
@@ -117,15 +94,4 @@ public class InvaderShield : MonoBehaviour
     }
 
 
-
-    /*
-    public IEnumerator Timer()
-    {
-
-        yield return new WaitForSeconds(1f);
-
-        FlipShield();
-
-    }
-    */
 }

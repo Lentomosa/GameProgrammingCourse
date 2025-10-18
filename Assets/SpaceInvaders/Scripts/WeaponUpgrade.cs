@@ -19,7 +19,7 @@ public class WeaponUpgrade : MonoBehaviour
     public List<GameObject> bullets;
     public float upgradeDuration;
 
-    //public GameObject[] bullets = GameObject.FindGameObjectsWithTag("PlayerBullet");
+ 
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +34,7 @@ public class WeaponUpgrade : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Check if the ufo can move
+        // Check if the upgrade can move
         if (canMove)
         {
 
@@ -75,35 +75,27 @@ public class WeaponUpgrade : MonoBehaviour
             // Activate the player visual effect for the upgrade
             other.GetComponent<PlayerController>().UpgradeShow();
 
-           // List<GameObject> bullets = player.GetComponent<BulletPool>().bullets;
+            // Increase weapon tier
             gameManager.GetComponent<InvaderGameManager>().IncreaseWeaponTier();
             weaponTier = gameManager.GetComponent<InvaderGameManager>().weaponTier;
-            //for (int i = 0; i < bullets.Length; i++)
+
+
+            // Get a list of bullets to upgrade
             bullets = player.GetComponent<BulletPool>().bullets;
 
             foreach (GameObject obj in bullets)
                 
             {
  
-                //string weapon = "Plasma";
-                //string weapon = "Plasma";
                 obj.GetComponent<PlayerBullet>().LoadClipsFor(weapons[weaponTier]);
-               // obj.GetComponent<PlayerBullet>().PlayClip();
 
             }
-
-           
-
-
-
-
-            //bullet.GetComponent<PlayerBullet>().LoadClipsFor(weapon);
-            //bullet.GetComponent<PlayerBullet>().PlayClip();
 
 
         }
     }
     
+    // Load sounds for bullets
     public void LoadSounds()
     {
         bullets = player.GetComponent<BulletPool>().bullets;
@@ -112,17 +104,14 @@ public class WeaponUpgrade : MonoBehaviour
 
         {
 
-            //string weapon = "Plasma";
-            //string weapon = "Plasma";
             obj.GetComponent<PlayerBullet>().LoadClipsFor(weapons[weaponTier]);
-            // obj.GetComponent<PlayerBullet>().PlayClip();
 
         }
 
     }
     
 
-
+    // Activate and place upgrade
     public void ActivateUpgrade()
 
     {
@@ -132,15 +121,7 @@ public class WeaponUpgrade : MonoBehaviour
         transform.position = new Vector3(randomX, heightY, 0);
         gameObject.SetActive(true);
         gameManager.GetComponent<InvaderGameManager>().upgradeActive = true;
-
-
-        // Pick Left or Right to approach from
-
-
-
-       // transform.position = spawnPos.position;
         canMove = true;
-
 
     }
 

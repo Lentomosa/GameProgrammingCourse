@@ -15,7 +15,7 @@ public class AlienSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // InvaderSpawn();
+
 
     }
 
@@ -29,6 +29,7 @@ public class AlienSpawner : MonoBehaviour
 
     public void InvaderSpawn()
     {
+        
         aliens = new List<GameObject>();
         GameObject tmp;
         startPos = transform.position;
@@ -39,6 +40,8 @@ public class AlienSpawner : MonoBehaviour
             {
                 Vector3 spawnPos = startPos + new Vector3(col * spacingX, -row * spacingY, 0);
                 tmp = Instantiate(alienPrefab, spawnPos, Quaternion.identity, transform);
+
+                // Add invader to list
                 aliens.Add(tmp);
                 tmp.gameObject.SetActive(true);
             }
