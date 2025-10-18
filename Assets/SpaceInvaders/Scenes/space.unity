@@ -1749,6 +1749,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
         type: 3}
+      propertyPath: invaders.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1074248669495789628, guid: d0b6723366dd11943bbf87ffc98cfc37,
+        type: 3}
       propertyPath: enemyShieldThreshold
       value: 10
       objectReference: {fileID: 0}
@@ -2866,6 +2871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alienPrefab: {fileID: 7054158849725582850, guid: 17b774b44fc3e174e970339eaceea2a0,
     type: 3}
+  aliens: []
   rows: 4
   columns: 10
   spacingX: 1.5

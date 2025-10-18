@@ -56,7 +56,8 @@ public class InvaderGameManager : MonoBehaviour
     public GameObject upgrade;
 
     public List<GameObject> shieldInvaders;
-    public GameObject[] invaders;
+    //public GameObject[] invaders;
+    public List<GameObject> invaders;
 
     // Start is called before the first frame update
     void Start()
@@ -502,12 +503,22 @@ public class InvaderGameManager : MonoBehaviour
     {
 
         print("INVADERKILLED CALLED");
-        invaders = GameObject.FindGameObjectsWithTag("Enemy");
-        print(invaders);
+        //invaders = GameObject.FindGameObjectsWithTag("Enemy");
+
+
+       //invaders = new List<GameObject>();
+      
+
+        invaders = invaderSpawner.GetComponent<AlienSpawner>().aliens;
 
         // Spawn a new wave of invaders if no invaders are found
-        if (invaders.Length <= 1)
+        if (invaders.Count < 1)
         {
+            // spawn invaders
+            invaderSpawner.GetComponent<AlienSpawner>().InvaderSpawn();
+            print("ALL DEAD");
+            IncreaseDifficulty();
+
             // Deactivate active player bullets
 
             List<GameObject> bullets = player.GetComponent<BulletPool>().bullets;
@@ -520,12 +531,49 @@ public class InvaderGameManager : MonoBehaviour
 
 
             }
+        }
+
+        /*
+        foreach (GameObject obj in invaders)
+
+        {
+
+
+
+
+            if(obj.GetComponent<InvaderScript>().HP <= 0)
+            {
+                //invaders.Remove(obj);
+                //print(invaders.Count);
+
+
+            }
+ 
+
+        }
+        print(invaders);
+
+        */
+        
+
+
+        
+
+        
+
+     
+       /* if (!invaders.activeInHierarchy) //(invaders.Capacity <= 1)
+        {
+
+
+
 
             // spawn invaders
             invaderSpawner.GetComponent<AlienSpawner>().InvaderSpawn();
             print("ALL DEAD");
             IncreaseDifficulty();
         }
+        */
     }
 
     public void UpgradeSpawn()

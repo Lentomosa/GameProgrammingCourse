@@ -40,6 +40,7 @@ public class AlienSpawner : MonoBehaviour
                 Vector3 spawnPos = startPos + new Vector3(col * spacingX, -row * spacingY, 0);
                 tmp = Instantiate(alienPrefab, spawnPos, Quaternion.identity, transform);
                 aliens.Add(tmp);
+                tmp.gameObject.SetActive(true);
             }
         }
     }

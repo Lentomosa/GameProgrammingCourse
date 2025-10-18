@@ -36,8 +36,9 @@ public class InvaderScript : MonoBehaviour
     public bool hasObstacle = false;
 
     public GameObject gameManager;
+    public GameObject invaderSpawner;
 
-   
+
 
     public EnemyBulletPool bulletPool;
 
@@ -51,6 +52,7 @@ public class InvaderScript : MonoBehaviour
         speedLeft = -speed;
         speedRight = speed;
         gameManager = GameObject.Find("GameManager");
+        invaderSpawner = gameManager.GetComponent<InvaderGameManager>().invaderSpawner;
         playerPos = GameObject.Find("Player").transform;
         gun = transform.GetChild(0);
         Transform shield = transform.GetChild(0);
@@ -228,9 +230,17 @@ public class InvaderScript : MonoBehaviour
         // If HP is zero or lower
         if (HP <= 0)
         {
-            Destroy(gameObject);
+
+            List<GameObject> aliens;
+            aliens = invaderSpawner.GetComponent<AlienSpawner>().aliens;
+
+            aliens.Remove(gameObject);
+
+            gameObject.SetActive(false);
             gameManager.GetComponent<InvaderGameManager>().AddScore(100);
             gameManager.GetComponent<InvaderGameManager>().InvaderKilled();
+            Destroy(gameObject);
+
 
         }
     }
